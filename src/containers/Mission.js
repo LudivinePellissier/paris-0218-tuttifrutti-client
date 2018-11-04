@@ -141,8 +141,14 @@ class Mission extends React.Component {
 									}}
 								>Envoyer un message</Button></div>
 							<div className='mission-student-doc-upload'><FormUpload missionId={this.missionId}/></div>
-							<div onClick={changeStatus} className='mission-student-finished'>
-								<Button>Mission terminée</Button>
+							<div onClick={noStudent ? undefined : changeStatus} className='mission-student-finished'>
+							<Button
+									style={{
+										cursor: noStudent ? 'auto' : undefined,
+										backgroundColor: noStudent ? '#add' : undefined,
+										fontWeight: noStudent ? '400' : undefined
+									}}
+									>Mission terminée</Button>
 							</div>
 						</div>
 					</div>
