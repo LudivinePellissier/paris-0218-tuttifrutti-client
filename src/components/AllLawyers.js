@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import './style/AllLawyers.css'
-import { getAllLawyers, approvedLawyer } from '../api.js'
+import { getAllLawyers, approvedLawyer, deleteLawyer } from '../api.js'
 import Button from '../components/Button.js'
 
 class AllLawyers extends React.Component {
@@ -38,6 +38,20 @@ class AllLawyers extends React.Component {
 			})
 	}
 
+	delete = (lawyer) => {
+		const lawyerId = lawyer._id
+		deleteLawyer(lawyerId)
+		.then(() => {
+			getAllLawyers()
+			.then((res) => {
+				this.setState({ allUsers: res })
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		})
+	}
+
 	render() {
 
 		const EachUser = (lawyer, key) => {
@@ -70,6 +84,8 @@ class AllLawyers extends React.Component {
 					</div>
 					<div onClick={() => this.Submit(lawyer)}>
 						<Button>{lawyer.approved === true ? "Désactiver" : "Activer"}</Button></div>
+					<div onClick={() => this.delete(lawyer)}>
+					<Button>Supprimer le compte</Button></div>
 				</div>
 			)
 		}

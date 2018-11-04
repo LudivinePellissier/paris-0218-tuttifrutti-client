@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { getAllStudents, approvedStudent } from '../api.js'
+import { getAllStudents, approvedStudent, deleteStudent } from '../api.js'
 import Button from '../components/Button.js'
 import './style/AllStudents.css'
 
@@ -39,6 +39,20 @@ class AllStudents extends React.Component {
 			})
 	}
 
+	delete = (student) => {
+		const studentId = student._id
+		deleteStudent(studentId)
+		.then(() => {
+			getAllStudents()
+			.then((res) => {
+				this.setState({ allUsers: res.data })
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		})
+	}
+
 	render() {
 
 		const EachUser = (student, key) => {
@@ -67,6 +81,8 @@ class AllStudents extends React.Component {
 					</div>
 					<div className='button-student-more' onClick={() => this.Submit(student)}>
 					<Button>{student.approved === true ? "Désactiver" : "Activer"}</Button></div>
+					<div onClick={() => this.delete(student)}>
+					<Button>Supprimer le compte</Button></div>
 				</div>
 			)
 		}
