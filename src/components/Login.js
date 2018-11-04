@@ -60,6 +60,8 @@ class Login extends React.Component {
     let notValid = ''
     if (this.state.error === 'not verified') {
       notValid = `Votre compte n'est pas encore actif. Vérifiez votre boîte mail.`
+    } else if (this.state.error === 'not approved') {
+      notValid = `Votre compte est désactivé. Veuillez contacter l'équipe LITTA.`
     } else if (this.state.error === 'auth failed') {
       notValid = 'Votre identifiant est inconnu ou votre mot de passe est incorrect.'
     } else {

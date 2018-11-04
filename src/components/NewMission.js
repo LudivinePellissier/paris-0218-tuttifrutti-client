@@ -86,7 +86,7 @@ class NewMission extends React.Component {
                   </select>
                 </div>
                 <div className='form-div'>
-                  <input className='form-input-new-mission' type="text" name="deadline" placeholder="Deadline : MM-JJ-YYYY" id="deadline" onChange={this.UpdateField} required />
+                  <input className='form-input-new-mission' type="date" name="deadline" placeholder="Deadline : MM-JJ-YYYY" id="deadline" onChange={this.UpdateField} required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" />
                   <input className='form-input-new-mission' type="text" name="price" placeholder="Rémunération" id="price" onChange={this.UpdateField} required />
                 </div>
                 <div className='form-div'>

@@ -134,7 +134,7 @@ export const getOldMissions = lawyerId => {
 }
 
 export const changeStatusMission = missionPath => {
-	return axios.put(`${apiUrl}${missionPath}`, { finished: true })
+	return axios.put(`${apiUrl}${missionPath}/status`, { finished: true })
 }
 
 // LAWYER INTERFACE : UPLAOD FILE
@@ -181,6 +181,13 @@ export const getAllLawyers = () => {
 		.then(res => {
 			return res.data
 		})
+}
+
+export const approvedLawyer = user => {
+	return axios.post(`${apiUrl}/alllawyers`, { user })
+	.then(res => {
+		return res
+	})
 }
 
 // ADMIN INTERFACE : STUDENTS
