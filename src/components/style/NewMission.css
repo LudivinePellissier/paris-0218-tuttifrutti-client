@@ -81,3 +81,6 @@
   border-bottom: solid 0.07rem green;
 }
 
+::-webkit-inner-spin-button {
+    display: none;
+}

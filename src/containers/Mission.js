@@ -78,7 +78,8 @@ class Mission extends React.Component {
 			event.preventDefault()
 			this.setState({ ...this.state, finished: true })
 			changeStatusMission(this.missionId)
-				.then(() => {
+				.then(res => {
+					console.log(res)
 					window.location.replace('/missions')
 				})
 		}

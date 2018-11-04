@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import './style/AllLawyers.css'
-import { getAllLawyers } from '../api.js'
+import { getAllLawyers, approvedLawyer } from '../api.js'
+import Button from '../components/Button.js'
 
 class AllLawyers extends React.Component {
 	state = {
@@ -16,6 +17,24 @@ class AllLawyers extends React.Component {
 			})
 			.catch((error) => {
 				console.log(error);
+			})
+	}
+
+	Submit = async (lawyer) => {
+		const clickedLawyer = this.state.allUsers.indexOf(lawyer)
+		const status = lawyer.approved === false ? true : false
+		let allUsersCopy = this.state.allUsers
+		allUsersCopy[clickedLawyer] = {...allUsersCopy[clickedLawyer], approved: status}
+		this.setState({allUsers: allUsersCopy})
+
+		const user = this.state.allUsers[clickedLawyer]
+
+		approvedLawyer(user)
+			.then((res) => {
+				console.log(res)
+			})
+			.catch((error) => {
+				console.log(error)
 			})
 	}
 
@@ -45,8 +64,12 @@ class AllLawyers extends React.Component {
 						</p>
 						<p>
 							{lawyer.activated === true ? "Email vérifié" : "Email non vérifié"}
+							<br />
+							{lawyer.approved === true ? "Compte actif" : "Compte inactif"}
 						</p>
 					</div>
+					<div onClick={() => this.Submit(lawyer)}>
+						<Button>{lawyer.approved === true ? "Désactiver" : "Activer"}</Button></div>
 				</div>
 			)
 		}
