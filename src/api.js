@@ -190,6 +190,13 @@ export const approvedLawyer = user => {
 	})
 }
 
+export const deleteLawyer = id => {
+	return axios.delete(`${apiUrl}/alllawyers/${id}`)
+	.then(res => {
+		return res
+	})
+}
+
 // ADMIN INTERFACE : STUDENTS
 
 export const getAllStudents = () => {
@@ -201,6 +208,13 @@ export const getAllStudents = () => {
 
 export const approvedStudent = user => {
 	return axios.post(`${apiUrl}/allstudents`, { user })
+	.then(res => {
+		return res
+	})
+}
+
+export const deleteStudent = id => {
+	return axios.delete(`${apiUrl}/allstudents/${id}`)
 	.then(res => {
 		return res
 	})
