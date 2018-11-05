@@ -10,17 +10,17 @@ class ParametersAdmin extends React.Component {
 		displayForm: 'none',
 		confirmUpdate: false
 	}
-
 	componentDidMount() {
-		userInfoAdmin().then(res =>
-			this.setState({
-				admin: {
-					id: res._id,
-					email: res.email,
-					firstName: res.firstName,
-					lastName: res.lastName
-				}
-			}))
+		userInfoAdmin()
+			.then(res =>
+				this.setState({
+					admin: {
+						id: res._id,
+						email: res.email,
+						firstName: res.firstName,
+						lastName: res.lastName
+					}
+				}))
 	}
 
 	UpdateField = event => { this.setState({ admin: { ...this.state.admin, [event.target.name]: event.target.value } }) }
@@ -41,12 +41,13 @@ class ParametersAdmin extends React.Component {
 
 		const user = this.state.admin
 
-		const password = document.getElementById("password").value;
-		const passwordConfirm = document.getElementById("passwordConfirm").value;
+		const password = document.getElementById("password").value
+		const passwordConfirm = document.getElementById("passwordConfirm").value
 
 		if (password === passwordConfirm) {
 			updateInfoAdmin(user)
 			this.setState({ confirmUpdate: true })
+			console.log(this.props.update)
 			this.props.update(this.state.admin.firstName, this.state.admin.lastName)
 			this.hideUpdateForm()
 		} else {

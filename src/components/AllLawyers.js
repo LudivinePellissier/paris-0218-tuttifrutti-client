@@ -1,12 +1,15 @@
 import React from 'react'
-import axios from 'axios'
+import Modal from 'react-responsive-modal'
 import './style/AllLawyers.css'
 import { getAllLawyers, approvedLawyer, deleteLawyer } from '../api.js'
 import Button from '../components/Button.js'
+import DeleteUser from '../components/DeleteUser.js'
 
 class AllLawyers extends React.Component {
 	state = {
-		allUsers: []
+		allUsers: [],
+		lawyerToDelete: '',
+		open: false
 	}
 
 	componentWillMount() {
@@ -38,21 +41,28 @@ class AllLawyers extends React.Component {
 			})
 	}
 
-	delete = (lawyer) => {
-		const lawyerId = lawyer._id
-		deleteLawyer(lawyerId)
-		.then(() => {
-			getAllLawyers()
+	onOpenModal = (event) => {
+		event.preventDefault()
+		this.setState({ open: true })
+	}
+
+	onCloseModal = () => {
+		this.setState({ open: false })
+	}
+
+	updateAllLawyersAfterDeleteOne = () => {
+		getAllLawyers()
 			.then((res) => {
 				this.setState({ allUsers: res })
 			})
 			.catch((error) => {
 				console.log(error);
 			})
-		})
 	}
 
 	render() {
+
+		const { open } = this.state
 
 		const EachUser = (lawyer, key) => {
 
@@ -84,7 +94,7 @@ class AllLawyers extends React.Component {
 					</div>
 					<div onClick={() => this.Submit(lawyer)}>
 						<Button>{lawyer.approved === true ? "Désactiver" : "Activer"}</Button></div>
-					<div onClick={() => this.delete(lawyer)}>
+					<div onClick={(e) => this.setState({lawyerToDelete: lawyer},this.onOpenModal(e))}>
 					<Button>Supprimer le compte</Button></div>
 				</div>
 			)
@@ -98,6 +108,9 @@ class AllLawyers extends React.Component {
 		return (
 			<div className='all-lawyers-container'>
 				{ShowEachUser}
+				<Modal open={open} onClose={this.onCloseModal} center>
+						<DeleteUser  userData={this.state.lawyerToDelete} delete={deleteLawyer} update={this.updateAllLawyersAfterDeleteOne} close={this.onCloseModal} />
+					</Modal>
 			</div>
 		)
 	}
