@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { userInfo, getAllMissions } from '../api.js'
+import { userInfo, getMissionsByLawyerId } from '../api.js'
 import Button from '../components/Button.js'
 import MissionTitle from '../components/MissionTitle.js'
 import MissionId from '../components/MissionId.js'
@@ -24,7 +24,7 @@ class AllMissions extends React.Component {
       }))
     .then(() => {
       const lawyerId = this.state.lawyer.id
-			getAllMissions(lawyerId)
+			getMissionsByLawyerId(lawyerId)
         .then(res => {
           this.setState({ allMissions: res })
         })
