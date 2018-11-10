@@ -29,27 +29,27 @@
   align-items: center;
 }
 
-.home-admin-studentlist {
+.home-admin-missionslist {
   background-color: #7accbc;
 }
 
-.home-admin-studentlist p {
+.home-admin-missionslist p {
   color: #fff;
 }
 
 
-.home-admin-lawyerlist {
+.home-admin-lawyerslist {
   background-color: #a1e5d8;
 }
 
-.home-admin-lawyerlist p {
+.home-admin-lawyerslist p {
   color: #fff;
 }
 
-.home-admin-fields {
+.home-admin-studentslist {
   background-color: #8eddce;
 }
 
-.home-admin-fields p {
+.home-admin-studentslist p {
   color: #fff;
 }

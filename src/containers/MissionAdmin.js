@@ -1,6 +1,4 @@
 import React from 'react'
-import Modal from 'react-responsive-modal'
-import Button from '../components/Button.js'
 import MissionTitle from '../components/MissionTitle.js'
 import MissionId from '../components/MissionId.js'
 import MissionField from '../components/MissionField.js'
@@ -9,12 +7,10 @@ import MissionDeadline from '../components/MissionDeadline.js'
 import MissionPrice from '../components/MissionPrice.js'
 import MissionStudent from '../components/MissionStudent.js'
 import MissionDescription from '../components/MissionDescription.js'
-import SendMessage from '../components/SendMessage.js'
 import './style/Mission.css'
-import FormUpload from '../components/FormUpload.js'
-import { changeStatusMission, getOneMission, infoStudent } from '../api.js';
+import { getOneMission, infoStudent } from '../api.js'
 
-class Mission extends React.Component {
+class MissionAdmin extends React.Component {
 	state = {
 		id: '',
 		name: '',
@@ -30,16 +26,7 @@ class Mission extends React.Component {
 		open: false
 	}
 
-	onOpenModal = (event) => {
-		event.preventDefault()
-		this.setState({ open: true })
-	}
-
-	onCloseModal = () => {
-		this.setState({ open: false })
-	}
-
-	missionId = window.location.pathname
+	missionId = window.location.pathname.slice(6)
 
 	async componentDidMount() {
 		await getOneMission(this.missionId)
@@ -72,26 +59,6 @@ class Mission extends React.Component {
 	}
 
 	render() {
-		const changeStatus = (event) => {
-			event.preventDefault()
-			this.setState({ ...this.state, finished: true })
-			changeStatusMission(this.missionId)
-				.then(res => {
-					console.log(res)
-					window.location.replace('/missions')
-				})
-		}
-
-		const { open } = this.state
-
-		const noStudent = this.state.student === `La mission n'a pas encore été attribuée.`
-
-		const styleSendMessage = {
-			cursor: 'auto',
-			backgroundColor: '#add',
-			fontWeight: '400'
-		}
-
 		const studentText = this.state.student !== `La mission n'a pas encore été attribuée.`
 			?
 			`La mission a été attribuée à ${this.state.studentName}.`
@@ -127,38 +94,10 @@ class Mission extends React.Component {
 					<MissionFiles names={this.state.filesSended}/>
 					</div>
 					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
-					{/* <hr className='separator' /> */}
-					<div className='buttons-mission'>
-						<div className='mission-student-block'>
-							<div onClick={noStudent ? undefined : this.onOpenModal} className='mission-student-message'>
-								<Button
-									style={{
-										cursor: noStudent ? 'auto' : undefined,
-										backgroundColor: noStudent ? '#add' : undefined,
-										fontWeight: noStudent ? '400' : undefined
-									}}
-								>Envoyer un message</Button></div>
-							<div className='mission-student-doc-upload'><FormUpload missionId={this.missionId}/></div>
-							<div onClick={noStudent ? undefined : changeStatus} className='mission-student-finished'>
-							<Button
-									style={{
-										cursor: noStudent ? 'auto' : undefined,
-										backgroundColor: noStudent ? '#add' : undefined,
-										fontWeight: noStudent ? '400' : undefined
-									}}
-									>Mission terminée</Button>
-							</div>
-						</div>
-					</div>
-					{/* <hr className='separator' /> */}
-
-					<Modal open={open} onClose={this.onCloseModal} center>
-						<SendMessage missionId={this.state.id} studentId={this.state.student} close={this.onCloseModal} />
-					</Modal>
 				</div>
 			</div>
 		)
 	}
 }
 
-export default Mission
+export default MissionAdmin

@@ -7,7 +7,9 @@ import LoginAdmin from './components/LoginAdmin.js'
 import HomeAdmin from './containers/HomeAdmin.js'
 import HomeLawyer from './containers/HomeLawyer.js'
 import AllMissionsPage from './containers/AllMissionsPage.js'
+import AllMissionsPageAdmin from './containers/AllMissionsPageAdmin.js'
 import MissionPage from './containers/MissionPage.js'
+import MissionPageAdmin from './containers/MissionPageAdmin.js'
 import OldMissionsPage from './containers/OldMissionsPage.js'
 import SignUpStudent from './components/SignUpStudent.js'
 import SignUpAdmin from './components/SignUpAdmin.js'
@@ -30,6 +32,8 @@ class App extends Component {
               <Route exact path="/login" component={Login}/>
 							<Route exact path="/loginadmin" component={LoginAdmin}/>
 							<Route exact path="/admin" component={HomeAdmin}/>
+							<Route exact path="/admin/missionslist" component={AllMissionsPageAdmin}/>
+              <Route exact path="/admin/missions/:missionId" component={MissionPageAdmin} />
               <Route exact path="/admin/studentslist" component={AllStudentsPage} />
 							<Route exact path="/admin/lawyerslist" component={AllLawyersPage} />
               <Route exact path="/profile" component={HomeLawyer}/>

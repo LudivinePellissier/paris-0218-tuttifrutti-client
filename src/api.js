@@ -111,7 +111,7 @@ export const createNewMission = mission => {
 	})
 }
 
-export const getAllMissions = lawyerId => {
+export const getMissionsByLawyerId = lawyerId => {
 	return axios.post(`${apiUrl}/missionsfiltered`,
 	{ lawyerId })
 		.then(res => {
@@ -173,6 +173,21 @@ export const missionSendMessage = (id, messageContent) => {
 	})
 }
 
+// ADMIN INTERFACE : MISSIONS
+
+export const getAllMissions = () => {
+	return axios.get(`${apiUrl}/allmissions`)
+		.then(res => {
+			return res.data
+		})
+}
+
+export const getLawyerInfos = (lawyerId) => {
+	return axios.get(`${apiUrl}/getLawyerInfos/${lawyerId}`)
+		.then(res => {
+			return res.data
+		})
+}
 
 // ADMIN INTERFACE : LAWYERS
 

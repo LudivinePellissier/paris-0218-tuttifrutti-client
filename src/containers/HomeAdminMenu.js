@@ -6,19 +6,19 @@ import './style/HomeAdminMenu.css'
 const HomeAdminMenu = () => (
 	<div>
 		<div className='home-admin-menu'>
-			<Link className='home-admin-menu-linkto-block1' to={`/admin/studentslist`}>
-				<div className='home-admin-studentlist'>
-					<MenuTitle text='Etudiants' />
+			<Link className='home-admin-menu-linkto-block1' to={`/admin/missionslist`}>
+				<div className='home-admin-missionslist'>
+					<MenuTitle text='Missions' />
 				</div></Link>
 		</div>
 		<div className='home-admin-menu'>
 			<Link className='home-admin-menu-linkto' to={`/admin/lawyerslist`}>
-				<div className='home-admin-lawyerlist'>
-					<MenuTitle text='Avocats / A venir' />
+				<div className='home-admin-lawyerslist'>
+					<MenuTitle text='Avocats' />
 				</div></Link>
-			<Link className='home-admin-menu-linkto' to={`/admin`}>
-				<div className='home-admin-fields'>
-					<MenuTitle text='Domaines de droit - A venir' />
+			<Link className='home-admin-menu-linkto' to={`/admin/studentslist`}>
+				<div className='home-admin-studentslist'>
+					<MenuTitle text='Etudiants' />
 				</div>
 			</Link>
 		</div>
