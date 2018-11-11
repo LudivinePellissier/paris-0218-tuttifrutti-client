@@ -164,7 +164,8 @@ export const changeStatusMission = missionPath => {
 // LAWYER INTERFACE : UPLAOD FILE
 
 export const missionUploadFile = file => {
-	return axios.post('${apiUrl}/upload', file)
+	console.log(file)
+	return axios.post(`${apiUrl}/upload`, file)
 	.then(res => {
 		return res
 	})
