@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import GoBack from '../components/GoBack.js'
 import MissionPageTitle from '../components/MissionPageTitle.js'
-import './style/OldMissionPageHeader.css'
+import './style/OldMissionsPageHeader.css'
 
-class OldMissionPageHeader extends React.Component {
+class OldMissionsPageHeader extends React.Component {
 	render() {
 		return (
 			<div>
@@ -19,4 +19,4 @@ class OldMissionPageHeader extends React.Component {
 	}
 }
 
-export default OldMissionPageHeader
+export default OldMissionsPageHeader

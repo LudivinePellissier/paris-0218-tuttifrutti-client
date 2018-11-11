@@ -1,23 +1,21 @@
 import React from 'react'
 import Modal from 'react-responsive-modal'
-import axios from 'axios'
-import { userInfoLawyer, getOldMissions } from '../api.js'
-import Button from '../components/Button.js'
-import MissionTitle from '../components/MissionTitle.js'
-import MissionId from '../components/MissionId.js'
-import MissionStudent from '../components/MissionStudent.js'
-import MissionDeadline from '../components/MissionDeadline.js'
-import MissionPrice from '../components/MissionPrice.js'
-import ReportProblem from '../components/ReportProblem.js'
-import './style/OldMissions.css'
+import { userInfoStudent, getOldMissionsStudent } from '../../api.js'
+import Button from '../../components/Button.js'
+import MissionTitle from '../../components/MissionTitle.js'
+import MissionId from '../../components/MissionId.js'
+import MissionDeadline from '../../components/MissionDeadline.js'
+import MissionPrice from '../../components/MissionPrice.js'
+import ReportProblem from '../../components/ReportProblem.js'
+import '../style/OldMissions.css'
 
-class OldMissions extends React.Component {
+class OldMissionsStudent extends React.Component {
 	state = {
 		oldMissions: [],
-		lawyer: {},
+		student: {},
 		open: false,
 		clickedMission: '',
-		studentId: ''
+		lawyerId: ''
 	}
 
 	onOpenModal = (event) => {
@@ -26,7 +24,7 @@ class OldMissions extends React.Component {
 	}
 
 	addIdAndOpenModal = (mission, event) => {
-			this.setState({clickedMission: mission._id, studentId: mission.student})
+			this.setState({clickedMission: mission._id, lawyerId: mission.author})
 			this.onOpenModal(event)
 	}
 
@@ -35,21 +33,22 @@ class OldMissions extends React.Component {
 	}
 
 	componentDidMount() {
-		userInfoLawyer()
+		userInfoStudent()
 			.then(res =>
 				this.setState({
-					lawyer: {
+					student: {
 						id: res._id
 					}
 				}))
 			.then(() => {
-				const lawyerId = this.state.lawyer.id
-				getOldMissions(lawyerId)
+				const studentId = this.state.student.id
+				console.log(studentId)
+				getOldMissionsStudent(studentId)
 					.then(res => {
 						this.setState({ oldMissions: res })
 					})
 					.catch((error) => {
-						console.log(error);
+						console.log(error)
 					})
 			})
 	}
@@ -57,7 +56,6 @@ class OldMissions extends React.Component {
 	render() {
 
 		const eachMission = mission => {
-			const studentText = `La mission a été réalisée par ${mission.studentName}`
 				return (
 					<div key={mission._id} className='each-mission-container'>
 						<div className='old-mission-block-title'>
@@ -66,9 +64,8 @@ class OldMissions extends React.Component {
 						</div>
 						<MissionDeadline text={mission.deadline} />
 						<MissionPrice text={mission.price} />
-						<MissionStudent text={studentText} />
 						<div className='old-missions-button'>
-							<Button>Télécharger la facture</Button>
+							<Button>Télécharger le recap</Button>
 							<div onClick={event => this.addIdAndOpenModal(mission, event)
 							}><Button>Signaler un problème</Button></div>
 						</div>
@@ -85,11 +82,11 @@ class OldMissions extends React.Component {
 			<div className='old-missions-container'>
 				{showEachMission}
 				<Modal open={open} onClose={this.onCloseModal} center>
-					<ReportProblem close={this.onCloseModal} missionId={this.state.clickedMission} studentId={this.state.studentId}/>
+					<ReportProblem close={this.onCloseModal} missionId={this.state.clickedMission} lawyerId={this.state.lawyerId}/>
 				</Modal>
 			</div>
 		)
 	}
 }
 
-export default OldMissions
+export default OldMissionsStudent

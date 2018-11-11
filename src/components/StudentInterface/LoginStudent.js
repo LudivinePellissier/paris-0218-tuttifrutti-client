@@ -1,13 +1,13 @@
 import React from 'react'
-import HeaderSite from '../containers/HeaderSite.js'
-import Button from './Button.js'
-import PageTitle from './PageTitle.js'
-import LinkSignUpConnect from './LinkSignUpConnect.js'
-import Footer from '../containers/Footer.js'
-import './style/LoginForm.css'
-import { loginLawyer } from '../api.js';
+import HeaderSite from '../../containers/HeaderSite.js'
+import Button from '../Button.js'
+import PageTitle from '../PageTitle.js'
+import LinkSignUpConnect from '../LinkSignUpConnect.js'
+import Footer from '../../containers/Footer.js'
+import '../style/LoginForm.css'
+import { loginStudent } from '../../api.js';
 
-class Login extends React.Component {
+class LoginStudent extends React.Component {
   state = {
     email: '',
     password: '',
@@ -26,7 +26,7 @@ class Login extends React.Component {
       email: this.state.email,
       password: this.state.password
     }
-		loginLawyer(creds)
+		loginStudent(creds)
       .then(response => {
 				return response.json()
 				.then(responseJson => {
@@ -38,7 +38,7 @@ class Login extends React.Component {
 						localStorage.removeItem('token')
 						this.setState({error: redirect})
 					} else {
-						window.location.replace('/profile')
+						window.location.replace('/student')
 					}
 				})
 			})
@@ -46,7 +46,7 @@ class Login extends React.Component {
 
   componentWillMount () {
     const token = localStorage.getItem('token')
-    if (token !== null) { window.location.replace('/profile') }
+    if (token !== null) { window.location.replace('/student') }
   }
 
   render () {
@@ -67,7 +67,7 @@ class Login extends React.Component {
         <div className='login-content'>
           <div>
             <div className='title-login'>
-              <PageTitle espace='Espace avocat' title='Connexion' />
+              <PageTitle espace='Espace étudiant' title='Connexion' />
             </div>
             <div>
               <div className='form-login-container'>
@@ -80,7 +80,7 @@ class Login extends React.Component {
               </div>
             </div>
             <div className='link-signup-connect'>
-              <LinkSignUpConnect text1='Pas encore inscrit ?' text2='Créez votre compte' linkRoute='/reg' />
+              <LinkSignUpConnect text1='Pas encore inscrit ?' text2='Créez votre compte' linkRoute='/signupstudent' />
             </div>
           </div>
         </div>
@@ -90,4 +90,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+export default LoginStudent

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { userInfo, createNewMission } from '../api.js'
+import { userInfoLawyer, createNewMission } from '../api.js'
 import Button from './Button.js'
 import './style/NewMission.css'
 import Fields from '../fields/fields.json'
@@ -27,7 +27,7 @@ class NewMission extends React.Component {
   }
 
   componentDidMount () {
-    userInfo().then(res =>
+    userInfoLawyer().then(res =>
       this.setState({ newmission: { ...this.state.newmission, author: res._id } }))
   }
 

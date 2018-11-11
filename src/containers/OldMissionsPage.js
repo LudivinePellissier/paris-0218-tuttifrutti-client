@@ -1,7 +1,7 @@
 import React from 'react'
 import HomeLawyerHeader from './HomeLawyerHeader.js'
 import OldMissions from '../containers/OldMissions.js'
-import OldMissionPageHeader from '../containers/OldMissionPageHeader.js'
+import OldMissionsPageHeader from '../containers/OldMissionsPageHeader.js'
 import Footer from '../containers/Footer.js'
 import { verifToken } from '../api.js';
 
@@ -26,7 +26,7 @@ class OldMissionsPage extends React.Component {
     return (
       <div>
         <HomeLawyerHeader/>
-        <OldMissionPageHeader to='/profile' text='< Retour au profil' />
+        <OldMissionsPageHeader to='/profile' text='< Retour au profil' />
         <OldMissions />
         <Footer />
       </div>
