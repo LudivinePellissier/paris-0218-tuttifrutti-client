@@ -19,7 +19,6 @@ class ParametersStudent extends React.Component {
 					student: {
 						id: res._id,
 						email: res.email,
-						password: res.password,
 						firstName: res.firstName,
 						lastName: res.lastName,
 						phone: res.phone,
@@ -95,13 +94,15 @@ class ParametersStudent extends React.Component {
 								</div>
 								<div className="parameters-info">
 									<p className="parameters-p">Spécialité en droit&nbsp;:&emsp;{this.state.student.field}</p>
+								</div>
+								<div className="parameters-info-half">
 									<p className="parameters-p">Numéro de téléphone&nbsp;:&emsp;{this.state.student.phone}</p>
-								<p className="parameters-p">Niveau d'étude&nbsp;:&emsp;{this.state.student.levelStudy}</p>
+									<p className="parameters-p">Niveau d'étude&nbsp;:&emsp;{this.state.student.levelStudy}</p>
 								</div>
 							</div>
-						</div>
-						<div onClick={this.showUpdateForm} className="parameters-button">
-							<Button>Modifier</Button>
+							<div onClick={this.showUpdateForm} className="parameters-button">
+								<Button>Modifier</Button>
+							</div>
 						</div>
 					</div>
 					<div style={{ display: this.state.displayForm }}>
@@ -115,12 +116,12 @@ class ParametersStudent extends React.Component {
 									<input className='form-input-parameters' type="email" name="email" value={this.state.student.email || ''} placeholder={this.state.student.email} id="email" onChange={this.UpdateField} />
 									<input className='form-input-parameters' type="text" name="phone" value={this.state.student.phone || ''} placeholder={this.state.student.phone} id="phone" onChange={this.UpdateField} />
 									<select className='form-select-signup' name="levelStudy" placeholder="Niveau d'études" id="levelStudy" onChange={this.UpdateField} defaultValue={this.state.student.levelStudy} required>
-                      <option disabled>Sélectionnez votre niveau d'études</option>
-                      <option>Master 1</option>
-                      <option>Master 2</option>
-                      <option>Ms/LLM</option>
-                      <option>Elève avocat</option>
-                    </select>
+										<option disabled>Sélectionnez votre niveau d'études</option>
+										<option>Master 1</option>
+										<option>Master 2</option>
+										<option>Ms/LLM</option>
+										<option>Elève avocat</option>
+									</select>
 								</div>
 								<div className='form-div'>
 									<select className='form-select-parameters' name="field" value={this.state.student.field || ''} placeholder={this.state.student.field} id="field" onChange={this.UpdateField} >
@@ -141,7 +142,7 @@ class ParametersStudent extends React.Component {
 							<Button>Annuler</Button>
 						</div>
 					</div>
-				</div>
+				</div >
 			</div>
 		)
 	}

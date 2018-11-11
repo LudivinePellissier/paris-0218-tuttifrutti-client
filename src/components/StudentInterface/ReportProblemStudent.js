@@ -1,25 +1,25 @@
 import React from 'react'
-import axios from 'axios'
-import { userInfoLawyer, missionReportProblem } from '../api.js'
-import Button from './Button.js'
-import './style/ReportProblem.css'
+import { userInfoStudent, missionReportProblem } from '../../api.js'
+import Button from '../Button.js'
+import '../style/ReportProblem.css'
 
 class ReportProblem extends React.Component {
   state = {
     problem: '',
     description: '',
-    author: '',
-		authorId: '',
+    studentId: '',
+    firstName: '',
+		firstName: '',
 		missionId: this.props.missionId,
-		studentId: this.props.studentId,
+		lawyerId: this.props.lawyerId,
     display: 'none',
     displayForm: 'block',
-    displayConfirm: 'none',
+    displayConfirm: 'none', 
   }
 
   componentDidMount () {
-    userInfoLawyer().then(res =>
-      this.setState({ author: res.cabinet, authorId: res._id }))
+    userInfoStudent().then(res =>
+      this.setState({ firstName: res.firstName, lastName: res.lastName, studentId: res._id }))
   }
 
   UpdateField = event => {
@@ -32,11 +32,12 @@ class ReportProblem extends React.Component {
 		this.setState({ displayForm: 'none', displayConfirm: 'block' })
 
 		const messageContent = {
-      type: 'lawyer_about_student',
-			author: this.state.author,
-			authorId: this.state.authorId,
-			missionId: this.state.missionId,
+      type: 'student_about_lawyer',
 			studentId: this.state.studentId,
+      firstName: this.state.firstName,
+			lastName: this.state.lastName,      
+			lawyerId: this.state.lawyerId,
+			missionId: this.state.missionId,
 			problem: this.state.problem,
 			description: this.state.description
 		}
@@ -60,7 +61,7 @@ class ReportProblem extends React.Component {
           <h1 className='title-report-problem'>Nature du problème</h1>
           <div className='form-report-problem-container'>
             <form className='form-report-problem' onSubmit={this.HandleSubmit}>
-              <div className='form-div'>
+              {/* <div className='form-div'>
                 <label>
                   <input className='form-radio-button-report-problem' name="problem" type="radio" value="La mission est incomplète" checked={this.state.problem === 'La mission est incomplète'} onChange={this.UpdateField} />
                     La mission est incomplète
@@ -71,7 +72,7 @@ class ReportProblem extends React.Component {
                   <input className='form-radio-button-report-problem' name="problem" type="radio" value="La mission n'a pas été rendue dans les temps" checked={this.state.problem === 'La mission n\'a pas été rendue dans les temps'} onChange={this.UpdateField} />
                   La mission n'a pas été rendue dans les temps
                 </label>
-              </div>
+              </div> */}
               <div className='form-div'>
                 <label>
                   <input className='form-radio-button-report-problem' name="problem" type="radio" value="Problème technique" checked={this.state.problem === 'Problème technique'} onChange={this.UpdateField} />
