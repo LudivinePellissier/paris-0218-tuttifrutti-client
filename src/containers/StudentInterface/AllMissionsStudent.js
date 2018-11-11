@@ -1,30 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { userInfoLawyer, getMissionsByLawyerId } from '../api.js'
-import Button from '../components/Button.js'
-import MissionTitle from '../components/MissionTitle.js'
-import MissionId from '../components/MissionId.js'
-import MissionField from '../components/MissionField.js'
-import MissionDeadline from '../components/MissionDeadline.js'
-import './style/AllMissions.css'
+import { userInfoStudent, getMissionsByStudentId } from '../../api.js'
+import Button from '../../components/Button.js'
+import MissionTitle from '../../components/MissionTitle.js'
+import MissionId from '../../components/MissionId.js'
+import MissionField from '../../components/MissionField.js'
+import MissionDeadline from '../../components/MissionDeadline.js'
+import '../style/AllMissions.css'
 
-class AllMissions extends React.Component {
+class AllMissionsStudent extends React.Component {
   state = {
     allMissions: [],
-    lawyer: {}
+    student: {}
   }
 
   componentDidMount() {
-    userInfoLawyer()
+    userInfoStudent()
     .then(res =>
       this.setState({
-        lawyer: {
+        student: {
           id: res._id
         }
       }))
     .then(() => {
-      const lawyerId = this.state.lawyer.id
-			getMissionsByLawyerId(lawyerId)
+      const studentId = this.state.student.id
+			getMissionsByStudentId(studentId)
         .then(res => {
           this.setState({ allMissions: res })
         })
@@ -46,7 +46,7 @@ class AllMissions extends React.Component {
           <MissionField text={mission.field} />
           <MissionDeadline text={mission.deadline} />
 					<div className='button-mission-more'>
-            <Link to={`/missions/${mission._id}`}><Button>Voir le détail</Button></Link>
+            <Link to={`/student/missions/${mission._id}`}><Button>Voir le détail</Button></Link>
           </div>
         </div>
       )
@@ -62,4 +62,4 @@ class AllMissions extends React.Component {
   }
 }
 
-export default AllMissions
+export default AllMissionsStudent

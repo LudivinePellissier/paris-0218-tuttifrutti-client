@@ -26,6 +26,16 @@ export const loginAdmin = creds => {
 	})
 }
 
+export const loginStudent = creds => {
+  return fetch(`${apiUrl}/loginstudent`, {
+		method: 'post',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ creds })
+	})
+}
+
 // VERIFICATION TOKEN
 
 export const verifToken = token => {
@@ -61,7 +71,7 @@ export const signUpStudent = user => {
 
 // USERS INFO : LAWYER & ADMIN
 
-export const userInfo = () => {
+export const userInfoLawyer = () => {
   const token = localStorage.getItem('token')
   const decoded = jwt_decode(token)
   return axios.post(`${apiUrl}/infolawyer`, { decoded })
@@ -93,13 +103,27 @@ export const updateInfoAdmin = user => {
 	})
 }
 
-export const infoStudent = id => {
-  return axios.post(`${apiUrl}/infostudent`, {
-			studentId: id
-		})
+export const userInfoStudent = () => {
+  const token = localStorage.getItem('token')
+  const decoded = jwt_decode(token)
+  return axios.post(`${apiUrl}/infostudent`, { decoded })
     .then(res => {
       return res.data
     })
+}
+
+export const getStudentFirstName = (id) => {
+  return axios.post(`${apiUrl}/studentfirstname`, { id })
+    .then(res => {
+      return res.data
+    })
+}
+
+export const updateInfoStudent = user => {
+	return axios.put(`${apiUrl}/infostudent`, { user })
+	.then(res => {
+		return res
+	})
 }
 
 // LAWYER INTERFACE : MISSIONS
@@ -274,8 +298,21 @@ export const getStudentInfoConfirmPage = (id, student) => {
 	})
 }
 
+// STUDENT INTERFACE 
 
+export const getOldMissionsStudent = studentId => {
+	return axios.post(`${apiUrl}/student/oldmissionsfiltered`, { studentId })
+		.then(res => {
+			return res.data
+		})
+}
 
+export const getMissionsByStudentId = studentId => {
+	console.log(studentId)
+	return axios.post(`${apiUrl}/student/missionsfiltered`,
+	{ studentId })
+		.then(res => res.data)
+}
 
 
 

@@ -12,7 +12,7 @@ import MissionDescription from '../components/MissionDescription.js'
 import SendMessage from '../components/SendMessage.js'
 import './style/Mission.css'
 import FormUpload from '../components/FormUpload.js'
-import { changeStatusMission, getOneMission, infoStudent } from '../api.js';
+import { changeStatusMission, getOneMission, getStudentFirstName } from '../api.js';
 
 class Mission extends React.Component {
 	state = {
@@ -64,10 +64,11 @@ class Mission extends React.Component {
 			this.setState({ ...this.state, student: `La mission n'a pas encore été attribuée.` })
 		} else {
 			const id = this.state.student
-			infoStudent(id)
-				.then(stud =>
-					this.setState({ ...this.state, studentName: stud })
-				)
+			getStudentFirstName(id)
+				.then(firstName => {
+					console.log(firstName)
+					this.setState({ ...this.state, studentName: firstName })
+				})
 		}
 	}
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { userInfo, updateInfoLawyer } from '../api.js'
+import { userInfoLawyer, updateInfoLawyer } from '../api.js'
 import Button from './Button.js'
 import './style/Parameters.css'
 import Fields from '../fields/fields.json'
@@ -14,7 +14,7 @@ class ParametersLawyer extends React.Component {
   }
 
   componentDidMount () {
-    userInfo().then(res =>
+    userInfoLawyer().then(res =>
       this.setState({
         lawyer: {
           id: res._id,

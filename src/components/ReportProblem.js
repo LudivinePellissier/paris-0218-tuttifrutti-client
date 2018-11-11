@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { userInfo, missionReportProblem } from '../api.js'
+import { userInfoLawyer, missionReportProblem } from '../api.js'
 import Button from './Button.js'
 import './style/ReportProblem.css'
 
@@ -18,7 +18,7 @@ class ReportProblem extends React.Component {
   }
 
   componentDidMount () {
-    userInfo().then(res =>
+    userInfoLawyer().then(res =>
       this.setState({ author: res.cabinet, authorId: res._id }))
   }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { userInfo, missionSendMessage } from '../api.js'
+import { userInfoLawyer, missionSendMessage } from '../api.js'
 import Button from './Button.js'
 import './style/SendMessage.css'
 
@@ -16,7 +16,7 @@ class SendMessage extends React.Component {
     }
 
     componentDidMount() {
-      userInfo().then(res => this.setState({ authorId: res._id, author: res.cabinet }))
+      userInfoLawyer().then(res => this.setState({ authorId: res._id, author: res.cabinet }))
     }
 
     UpdateField = event => {
