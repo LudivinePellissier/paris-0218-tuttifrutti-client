@@ -125,7 +125,7 @@ class Mission extends React.Component {
 					</div>
 					<div>
 					<p>Fichiers envoyés à l'étudiant :</p>
-					<MissionFiles names={this.state.filesSended}/>
+					<MissionFiles files={this.state.filesSended}/>
 					</div>
 					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
 					{/* <hr className='separator' /> */}

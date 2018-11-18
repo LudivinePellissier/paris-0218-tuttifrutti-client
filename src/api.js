@@ -171,8 +171,8 @@ export const missionUploadFile = file => {
 	})
 }
 
-export const missionStockUploadedFilesName = (mission, fileName) => {
-	return axios.put(`${apiUrl}${mission}`,{fileName})
+export const missionStockUploadedFileInfos = (mission, fileName, fileId) => {
+	return axios.put(`${apiUrl}${mission}`,{fileName, fileId})
 	.then(res => {
 		return res
 	})
