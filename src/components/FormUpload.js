@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Button from './Button.js'
 import './style/FormUpload.css'
-import { missionUploadFile, missionStockUploadedFilesName } from '../api.js'
+import { missionUploadFile, missionStockUploadedFileInfos } from '../api.js'
 
 class FormUpload extends Component {
     state = {
@@ -35,6 +35,7 @@ class FormUpload extends Component {
     let formData = new FormData()
     formData.append('description', description)
     formData.append('selectedFile', selectedFile)
+    console.log(formData)
 
     this.setState({ uploading: true })
 
@@ -60,9 +61,11 @@ class FormUpload extends Component {
             fileSended : this.state.selectedFile.name
           },
           async () => {
+            console.log(res.data)
+            const fileId = res.data.fileId
 						const fileName = await this.state.fileSended
 						const mission = await this.state.missionId
-						missionStockUploadedFilesName(mission, fileName)
+						missionStockUploadedFileInfos(mission, fileName, fileId)
             .then(() => {
               window.location.reload()
             })
