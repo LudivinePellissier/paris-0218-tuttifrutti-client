@@ -178,6 +178,17 @@ export const missionStockUploadedFileInfos = (mission, fileName, fileId) => {
 	})
 }
 
+export const missionDownloadFile = id => {
+	console.log(id)
+	return axios.post(`${apiUrl}/download`, {id})
+	.then(res => {		
+		return {
+			type: res.headers['content-type'], 
+			data: res.data.data.data,
+		}
+	})
+}
+
 // LAWYER INTERFACE : REPORT PROBLEM ON ONE FINISHED MISSION
 
 export const missionReportProblem = (id, messageContent) => {

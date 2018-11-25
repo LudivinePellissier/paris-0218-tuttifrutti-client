@@ -7,7 +7,7 @@ import MissionDeadline from '../../components/MissionDeadline.js'
 import MissionPrice from '../../components/MissionPrice.js'
 import MissionDescription from '../../components/MissionDescription.js'
 import '../style/Mission.css'
-import { getOneMission } from '../../api.js'
+import { getOneMission, missionDownloadFile } from '../../api.js'
 
 class MissionStudent extends React.Component {
 	state = {
@@ -46,6 +46,21 @@ class MissionStudent extends React.Component {
 			})
 	}
 
+	downloadFile = id => {
+		missionDownloadFile(id)
+			.then(async res => {
+				const dataFile = new Uint8Array(res.data)
+				const blobDataFile = new Blob([dataFile], {type: res.type})
+				const link = document.createElement('a')
+				console.log(this.state.filesSended.find(file => file.id === id).name)
+				const fileName = this.state.filesSended.find(file => file.id === id).name
+
+				link.href = window.URL.createObjectURL(blobDataFile)
+				link.download = fileName
+				link.click()
+		})
+	}
+
 	render() {
 		return (
 			<div className='mission-container'>
@@ -73,7 +88,7 @@ class MissionStudent extends React.Component {
 					</div>
 					<div>
 					<p>Fichiers envoyés par le cabinet :</p>
-					<MissionFiles names={this.state.filesSended}/>
+					<MissionFiles  files={this.state.filesSended} download={this.downloadFile}/>
 					</div>
 				</div>
 			</div>
