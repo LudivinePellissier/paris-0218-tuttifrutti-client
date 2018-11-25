@@ -12,7 +12,7 @@ import MissionDescription from '../components/MissionDescription.js'
 import SendMessage from '../components/SendMessage.js'
 import './style/Mission.css'
 import FormUpload from '../components/FormUpload.js'
-import { changeStatusMission, getOneMission, getStudentFirstName } from '../api.js';
+import { changeStatusMission, getOneMission, getStudentFirstName, missionDownloadFile } from '../api.js'
 
 class Mission extends React.Component {
 	state = {
@@ -72,6 +72,21 @@ class Mission extends React.Component {
 		}
 	}
 
+	downloadFile = id => {
+		missionDownloadFile(id)
+			.then(async res => {
+				const dataFile = new Uint8Array(res.data)
+				const blobDataFile = new Blob([dataFile], {type: res.type})
+				const link = document.createElement('a')
+				console.log(this.state.filesSended.find(file => file.id === id).name)
+				const fileName = this.state.filesSended.find(file => file.id === id).name
+
+				link.href = window.URL.createObjectURL(blobDataFile)
+				link.download = fileName
+				link.click()
+		})
+	}
+
 	render() {
 		const changeStatus = (event) => {
 			event.preventDefault()
@@ -125,7 +140,7 @@ class Mission extends React.Component {
 					</div>
 					<div>
 					<p>Fichiers envoyés à l'étudiant :</p>
-					<MissionFiles files={this.state.filesSended}/>
+					<MissionFiles files={this.state.filesSended} download={this.downloadFile}/>
 					</div>
 					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
 					{/* <hr className='separator' /> */}
