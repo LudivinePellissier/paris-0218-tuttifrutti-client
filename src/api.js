@@ -171,11 +171,8 @@ export const missionUploadFile = file => {
 	})
 }
 
-export const missionStockUploadedFileInfos = (mission, fileName, fileId) => {
-	return axios.put(`${apiUrl}${mission}`,{fileName, fileId})
-	.then(res => {
-		return res
-	})
+export const missionStockUploadedFileInfos = (mission, fileName, fileId, userType) => {
+	return axios.put(`${apiUrl}${mission}`, {fileName, fileId, userType})
 }
 
 export const missionDownloadFile = id => {
@@ -201,8 +198,18 @@ export const missionReportProblem = (id, messageContent) => {
 
 // LAWYER INTERFACE : SEND MESSAGE TO STUDENT
 
-export const missionSendMessage = (id, messageContent) => {
-	return axios.post(`${apiUrl}/missions/${id}/sendmessage`,
+export const missionSendMessageToStudent = (id, messageContent) => {
+	return axios.post(`${apiUrl}/missions/${id}/sendmessagetostudent`,
+	{ messageContent })
+	.then(res => {
+		return res
+	})
+}
+
+// STUDENT INTERFACE : SEND MESSAGE TO LAWYER
+
+export const missionSendMessageToLawyer = (id, messageContent) => {
+	return axios.post(`${apiUrl}/missions/${id}/sendmessagetolawyer`,
 	{ messageContent })
 	.then(res => {
 		return res

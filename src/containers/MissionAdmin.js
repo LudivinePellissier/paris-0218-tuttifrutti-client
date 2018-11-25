@@ -8,7 +8,7 @@ import MissionPrice from '../components/MissionPrice.js'
 import MissionStudent from '../components/MissionStudent.js'
 import MissionDescription from '../components/MissionDescription.js'
 import './style/Mission.css'
-import { getOneMission, getStudentFirstName } from '../api.js'
+import { getOneMission, getStudentFirstName, missionDownloadFile } from '../api.js'
 
 class MissionAdmin extends React.Component {
 	state = {
@@ -22,7 +22,8 @@ class MissionAdmin extends React.Component {
 		studentName: '',
 		description: '',
 		finished: '',
-		filesSended: [],
+		filesFromLawyer: [],
+		filesFromStudent: [],
 		open: false
 	}
 
@@ -41,7 +42,8 @@ class MissionAdmin extends React.Component {
 					student: res.data.student,
 					description: res.data.description,
 					finished: res.data.finished,
-					filesSended: res.data.filesSended
+					filesFromLawyer: res.data.filesFromLawyer,
+					filesFromStudent: res.data.filesFromStudent,
 				})
 			})
 			.catch((error) => {
@@ -56,6 +58,29 @@ class MissionAdmin extends React.Component {
 					this.setState({ ...this.state, studentName: firstName })
 				)
 		}
+	}
+
+	getFileName = id => {
+		const lawyerFile = this.state.filesFromLawyer.find(file => file.id === id)
+		const studentFile = this.state.filesFromStudent.find(file => file.id === id)
+		if (lawyerFile != undefined) {
+			return lawyerFile.name
+		} else {
+			return studentFile.name
+		}
+	}
+
+	downloadFile = id => {
+		missionDownloadFile(id)
+			.then(async res => {
+				const dataFile = new Uint8Array(res.data)
+				const blobDataFile = new Blob([dataFile], {type: res.type})
+				const link = document.createElement('a')
+				const fileName = this.getFileName(id)
+				link.href = window.URL.createObjectURL(blobDataFile)
+				link.download = fileName
+				link.click()
+		})
 	}
 
 	render() {
@@ -90,8 +115,12 @@ class MissionAdmin extends React.Component {
 						<MissionDescription text={this.state.description} />
 					</div>
 					<div>
-					<p>Fichiers envoyés à l'étudiant :</p>
-					<MissionFiles names={this.state.filesSended}/>
+					<p>Fichiers envoyés par le cabinet :</p>
+					<MissionFiles files={this.state.filesFromLawyer} download={this.downloadFile}/>
+					</div>
+					<div>
+					<p>Fichiers envoyés par l'étudiant :</p>
+					<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile}/>
 					</div>
 					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
 				</div>

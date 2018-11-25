@@ -26,8 +26,10 @@ class Mission extends React.Component {
 		studentName: '',
 		description: '',
 		finished: '',
-		filesSended: [],
-		open: false
+		filesFromLawyer: [],
+		filesFromStudent: [],
+		open: false,
+		userType: 'lawyer',
 	}
 
 	onOpenModal = (event) => {
@@ -54,7 +56,8 @@ class Mission extends React.Component {
 					student: res.data.student,
 					description: res.data.description,
 					finished: res.data.finished,
-					filesSended: res.data.filesSended
+					filesFromLawyer: res.data.filesFromLawyer,
+					filesFromStudent: res.data.filesFromStudent,
 				})
 			})
 			.catch((error) => {
@@ -72,15 +75,23 @@ class Mission extends React.Component {
 		}
 	}
 
+	getFileName = id => {
+		const lawyerFile = this.state.filesFromLawyer.find(file => file.id === id)
+		const studentFile = this.state.filesFromStudent.find(file => file.id === id)
+		if (lawyerFile != undefined) {
+			return lawyerFile.name
+		} else {
+			return studentFile.name
+		}
+	}
+
 	downloadFile = id => {
 		missionDownloadFile(id)
 			.then(async res => {
 				const dataFile = new Uint8Array(res.data)
 				const blobDataFile = new Blob([dataFile], {type: res.type})
 				const link = document.createElement('a')
-				console.log(this.state.filesSended.find(file => file.id === id).name)
-				const fileName = this.state.filesSended.find(file => file.id === id).name
-
+				const fileName = this.getFileName(id)
 				link.href = window.URL.createObjectURL(blobDataFile)
 				link.download = fileName
 				link.click()
@@ -139,8 +150,12 @@ class Mission extends React.Component {
 						<MissionDescription text={this.state.description} />
 					</div>
 					<div>
-					<p>Fichiers envoyés à l'étudiant :</p>
-					<MissionFiles files={this.state.filesSended} download={this.downloadFile}/>
+					<p>Fichiers que vous avez envoyé à l'étudiant :</p>
+					<MissionFiles files={this.state.filesFromLawyer} download={this.downloadFile}/>
+					</div>
+					<div>
+					<p>Fichiers envoyés par l'étudiant :</p>
+					<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile}/>
 					</div>
 					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
 					{/* <hr className='separator' /> */}
@@ -154,7 +169,7 @@ class Mission extends React.Component {
 										fontWeight: noStudent ? '400' : undefined
 									}}
 								>Envoyer un message</Button></div>
-							<div className='mission-student-doc-upload'><FormUpload missionId={this.missionId}/></div>
+							<div className='mission-student-doc-upload'><FormUpload missionId={this.missionId} userType={this.state.userType}/></div>
 							<div onClick={noStudent ? undefined : changeStatus} className='mission-student-finished'>
 							<Button
 									style={{

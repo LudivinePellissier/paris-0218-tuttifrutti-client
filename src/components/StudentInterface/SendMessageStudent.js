@@ -1,22 +1,22 @@
 import React from 'react'
-import { userInfoLawyer, missionSendMessageToStudent } from '../api.js'
-import Button from './Button.js'
-import './style/SendMessage.css'
+import { userInfoStudent, missionSendMessageToLawyer } from '../../api.js'
+import Button from '../Button.js'
+import '../style/SendMessage.css'
 
 class SendMessage extends React.Component {
     state = {
       objet: '',
       message: '',
-			authorId: '',
-			author: '',
+			lawyerId:  this.props.lawyerId,
+			student: '',
 			missionId: this.props.missionId,
-			studentId: this.props.studentId,
+			studentId: '',
       displayForm: 'block',
       displayConfirm: 'none',
     }
 
     componentDidMount() {
-      userInfoLawyer().then(res => this.setState({ authorId: res._id, author: res.cabinet }))
+      userInfoStudent().then(res => this.setState({ studentId: res._id, student: res.firstName + ' ' + res.lastName }))
     }
 
     UpdateField = event => {
@@ -29,16 +29,17 @@ class SendMessage extends React.Component {
 			this.setState({ displayForm: 'none', displayConfirm: 'block' })
 
 			const messageContent = {
-				author: this.state.author,
+				student: this.state.student,
 				objet: this.state.objet,
       	message: this.state.message,
-      	authorId: this.state.authorId,
+      	lawyerId: this.state.lawyerId,
 				missionId: this.state.missionId,
 				studentId: this.state.studentId
 			}
 
-			const id = this.state.missionId
-			missionSendMessageToStudent(id, messageContent)
+      const id = this.state.missionId
+      console.log(messageContent)
+			missionSendMessageToLawyer(id, messageContent)
     }
 
   render() {

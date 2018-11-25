@@ -1,4 +1,5 @@
 import React from 'react'
+import Modal from 'react-responsive-modal'
 import MissionTitle from '../../components/MissionTitle.js'
 import MissionId from '../../components/MissionId.js'
 import MissionField from '../../components/MissionField.js'
@@ -6,12 +7,16 @@ import MissionFiles from '../../components/MissionFiles.js'
 import MissionDeadline from '../../components/MissionDeadline.js'
 import MissionPrice from '../../components/MissionPrice.js'
 import MissionDescription from '../../components/MissionDescription.js'
+import Button from '../../components/Button.js'
+import FormUpload from '../../components/FormUpload.js'
+import SendMessageStudent from '../../components/StudentInterface/SendMessageStudent.js'
 import '../style/Mission.css'
 import { getOneMission, missionDownloadFile } from '../../api.js'
 
 class MissionStudent extends React.Component {
 	state = {
 		id: '',
+		lawyer: '',
 		name: '',
 		field: '',
 		subField: '',
@@ -19,18 +24,31 @@ class MissionStudent extends React.Component {
 		price: '',
 		description: '',
 		finished: '',
-		filesSended: [],
-		open: false
+		filesFromLawyer: [],
+		filesFromStudent: [],
+		open: false,
+		userType: 'student',
 	}
 
 	missionId = window.location.pathname.slice(8)
+
+	onOpenModal = (event) => {
+		event.preventDefault()
+		this.setState({ open: true })
+	}
+
+	onCloseModal = () => {
+		this.setState({ open: false })
+	}
 
 	async componentDidMount() {
 		console.log(this.missionId)
 		await getOneMission(this.missionId)
 			.then(res => {
+				console.log(res.data)
 				this.setState({
 					id: res.data._id,
+					lawyer: res.data.author,
 					name: res.data.name,
 					field: res.data.field,
 					subField: res.data.subField,
@@ -38,12 +56,23 @@ class MissionStudent extends React.Component {
 					price: res.data.price,
 					description: res.data.description,
 					finished: res.data.finished,
-					filesSended: res.data.filesSended
+					filesFromLawyer: res.data.filesFromLawyer,
+					filesFromStudent: res.data.filesFromStudent,
 				})
 			})
 			.catch((error) => {
 				console.log(error)
 			})
+	}
+
+	getFileName = id => {
+		const lawyerFile = this.state.filesFromLawyer.find(file => file.id === id)
+		const studentFile = this.state.filesFromStudent.find(file => file.id === id)
+		if (lawyerFile != undefined) {
+			return lawyerFile.name
+		} else {
+			return studentFile.name
+		}
 	}
 
 	downloadFile = id => {
@@ -52,9 +81,7 @@ class MissionStudent extends React.Component {
 				const dataFile = new Uint8Array(res.data)
 				const blobDataFile = new Blob([dataFile], {type: res.type})
 				const link = document.createElement('a')
-				console.log(this.state.filesSended.find(file => file.id === id).name)
-				const fileName = this.state.filesSended.find(file => file.id === id).name
-
+				const fileName = this.getFileName(id)
 				link.href = window.URL.createObjectURL(blobDataFile)
 				link.download = fileName
 				link.click()
@@ -62,6 +89,9 @@ class MissionStudent extends React.Component {
 	}
 
 	render() {
+
+		const { open } = this.state
+
 		return (
 			<div className='mission-container'>
 				<div className='mission-content'>
@@ -88,8 +118,22 @@ class MissionStudent extends React.Component {
 					</div>
 					<div>
 					<p>Fichiers envoyés par le cabinet :</p>
-					<MissionFiles  files={this.state.filesSended} download={this.downloadFile}/>
+					<MissionFiles files={this.state.filesFromLawyer} download={this.downloadFile}/>
 					</div>
+					<div>
+					<p>Fichiers que vous avez envoyé :</p>
+					<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile}/>
+					</div>
+					<div className='buttons-mission'>
+						<div className='mission-student-block'>
+							<div onClick={this.onOpenModal} className='mission-student-message'>
+								<Button>Envoyer un message</Button></div>
+							<div className='mission-student-doc-upload'><FormUpload missionId={this.missionId} userType={this.state.userType}/></div>
+						</div>
+					</div>
+					<Modal open={open} onClose={this.onCloseModal} center>
+						<SendMessageStudent missionId={this.state.id} lawyerId={this.state.lawyer} close={this.onCloseModal} />
+					</Modal>
 				</div>
 			</div>
 		)
