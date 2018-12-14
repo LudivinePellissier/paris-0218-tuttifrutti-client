@@ -5,6 +5,7 @@ import MissionTitle from '../components/MissionTitle.js'
 import MissionId from '../components/MissionId.js'
 import MissionField from '../components/MissionField.js'
 import MissionFiles from '../components/MissionFiles.js'
+import MissionMessages from '../components/MissionMessages.js'
 import MissionDeadline from '../components/MissionDeadline.js'
 import MissionPrice from '../components/MissionPrice.js'
 import MissionStudent from '../components/MissionStudent.js'
@@ -12,7 +13,7 @@ import MissionDescription from '../components/MissionDescription.js'
 import SendMessage from '../components/SendMessage.js'
 import './style/Mission.css'
 import FormUpload from '../components/FormUpload.js'
-import { changeStatusMission, getOneMission, getStudentFirstName, missionDownloadFile } from '../api.js'
+import { changeStatusMission, getOneMission, getStudentFirstName, missionDownloadFile, getMessagesByMissionId } from '../api.js'
 
 class Mission extends React.Component {
 	state = {
@@ -30,6 +31,7 @@ class Mission extends React.Component {
 		filesFromStudent: [],
 		open: false,
 		userType: 'lawyer',
+		messages: [],
 	}
 
 	onOpenModal = (event) => {
@@ -69,10 +71,14 @@ class Mission extends React.Component {
 			const id = this.state.student
 			getStudentFirstName(id)
 				.then(firstName => {
-					console.log(firstName)
 					this.setState({ ...this.state, studentName: firstName })
 				})
 		}
+
+		getMessagesByMissionId(this.missionId)
+		.then(res => {
+			this.setState({ ...this.state, messages: res })
+		})
 	}
 
 	getFileName = id => {
@@ -104,7 +110,6 @@ class Mission extends React.Component {
 			this.setState({ ...this.state, finished: true })
 			changeStatusMission(this.missionId)
 				.then(res => {
-					console.log(res)
 					window.location.replace('/missions')
 				})
 		}
@@ -149,16 +154,27 @@ class Mission extends React.Component {
 					<div className='mission-description'>
 						<MissionDescription text={this.state.description} />
 					</div>
-					<div>
-					<p>Fichiers que vous avez envoyé à l'étudiant :</p>
+					<div className='mission-files'>
+					<div className='mission-files-title'>
+						<p>Fichiers envoyés à l'étudiant</p>
+						<hr></hr>
+						<div className='mission-files-newfile'><FormUpload missionId={this.missionId} userType={this.state.userType}/></div>
+					</div>
 					<MissionFiles files={this.state.filesFromLawyer} download={this.downloadFile}/>
 					</div>
-					<div>
-					<p>Fichiers envoyés par l'étudiant :</p>
+					<div className='mission-files'>
+					<div className='mission-files-title'>
+						<p>Fichiers remis par l'étudiant</p>
+						<hr></hr>
+					</div>
 					<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile}/>
 					</div>
 					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
 					{/* <hr className='separator' /> */}
+					<div>
+						<p>Messages</p>
+						<MissionMessages messages={this.state.messages}/>
+					</div>
 					<div className='buttons-mission'>
 						<div className='mission-student-block'>
 							<div onClick={noStudent ? undefined : this.onOpenModal} className='mission-student-message'>
@@ -169,7 +185,7 @@ class Mission extends React.Component {
 										fontWeight: noStudent ? '400' : undefined
 									}}
 								>Envoyer un message</Button></div>
-							<div className='mission-student-doc-upload'><FormUpload missionId={this.missionId} userType={this.state.userType}/></div>
+							{/* <div className='mission-student-doc-upload'><FormUpload missionId={this.missionId} userType={this.state.userType}/></div> */}
 							<div onClick={noStudent ? undefined : changeStatus} className='mission-student-finished'>
 							<Button
 									style={{

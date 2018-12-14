@@ -1,22 +1,23 @@
 import React from 'react'
-import { userInfoLawyer, missionSendMessageToStudent } from '../api.js'
+import { userInfoLawyer, missionSendMessage } from '../api.js'
 import Button from './Button.js'
 import './style/SendMessage.css'
 
 class SendMessage extends React.Component {
     state = {
-      objet: '',
+      // objet: '',
       message: '',
 			authorId: '',
-			author: '',
+			authorName: '',
 			missionId: this.props.missionId,
-			studentId: this.props.studentId,
+			// studentId: this.props.studentId,
       displayForm: 'block',
       displayConfirm: 'none',
     }
 
     componentDidMount() {
-      userInfoLawyer().then(res => this.setState({ authorId: res._id, author: res.cabinet }))
+      userInfoLawyer()
+        .then(res => this.setState({ authorId: res._id, authorName: res.cabinet.slice(0,1) + '.' }))
     }
 
     UpdateField = event => {
@@ -26,19 +27,21 @@ class SendMessage extends React.Component {
     HandleSubmit = event => {
       event.preventDefault()
 
-			this.setState({ displayForm: 'none', displayConfirm: 'block' })
+      this.setState({ displayForm: 'none', displayConfirm: 'block' })
+      
 
-			const messageContent = {
-				author: this.state.author,
-				objet: this.state.objet,
-      	message: this.state.message,
+			const message = {
+        date: Date.now(),
+				authorName: this.state.authorName,
       	authorId: this.state.authorId,
 				missionId: this.state.missionId,
-				studentId: this.state.studentId
+        message: this.state.message,
+				// objet: this.state.objet,
+				// studentId: this.state.studentId
 			}
 
 			const id = this.state.missionId
-			missionSendMessageToStudent(id, messageContent)
+			missionSendMessage(message)
     }
 
   render() {
@@ -49,9 +52,9 @@ class SendMessage extends React.Component {
             <h1 className="title-send-message">Envoyer un message</h1>
             <div className='form-send-message-container'>
               <form className="form-send-message" onSubmit={this.HandleSubmit}>
-                <div className='form-div'>
+                {/* <div className='form-div'>
                   <input className='form-input-send-message' type="text" name="objet" placeholder="Objet du message" id="objet" onChange={this.UpdateField} required />
-                </div>
+                </div> */}
                 <div className='form-div'>
                   <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
                 </div>

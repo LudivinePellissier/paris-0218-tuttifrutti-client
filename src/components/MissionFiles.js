@@ -6,9 +6,15 @@ const MissionFiles = ({files, download}) => {
       return <div><span>Aucun fichier n'a encore été partagé.</span></div>
     } else {
       return files.map(file => 
-        <div>
-          <span>{file.name}</span>
-          <span style={{cursor: 'pointer'}} onClick={() => download(file.id)}>Télécharger</span>
+        <div className='mission-files-onefile'>
+          <div>
+            <span><i class='fas fa-circle icons-circle'></i></span>
+            <span>{file.name}</span>
+          </div>
+          <div>
+            <i onClick={() => download(file.id)} style={{cursor: 'pointer'}} class='fas fa-file-download icons' title='Télécharger'></i>
+            <i class='fas fa-trash-alt icons' title='Supprimer'></i>
+          </div>
         </div>
       )
     } 

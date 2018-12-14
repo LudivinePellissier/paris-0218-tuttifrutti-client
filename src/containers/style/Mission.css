@@ -11,7 +11,7 @@
   justify-content: center;
 }
 .mission-content{
-  width: 40%;
+  width: 55%;
 }
 
 .mission-infos-block {
@@ -75,9 +75,10 @@
 }
 
 .mission-student-message {
-  width: 33%;
+  width: 50%;
   display: flex;
   justify-content: flex-end;
+  margin-right: 1rem;
 }
 
 /* .mission-student-message button {
@@ -96,10 +97,10 @@
 }
 
 .mission-student-finished {
-  width: 33%;
+  width: 50%;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 2rem;
+  margin-left: 1rem;
 }
 
 .separator {
@@ -113,3 +114,63 @@
   height: 0.1rem;
   background-color: #8eddce;
 } */
+
+.mission-files-onefile {
+  display: flex;
+  width: 100%;
+  padding-bottom: 0.3rem;
+}
+
+.mission-files-onefile div:first-child {
+  width:85%;
+  overflow: hidden;
+}
+
+.mission-files-onefile div:last-child {
+  width:15%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mission-files-title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.mission-files-title hr {
+  background-color: #1fa792;
+  min-width: 58%;
+  max-width: 73%;
+  height: 1px;
+  border: none;
+  padding-right: 0.1rem;
+}
+
+.mission-files-title p {
+  color: #1fa792;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 400;
+  width: 27%;
+}
+
+.mission-files-newfile {
+  width: 15%;
+  margin: -0.7rem 0 0 0;
+  padding-left: 0.5rem;
+  box-sizing: content-box;
+}
+
+.icons {
+  color: #8eddce;
+  font-size: 1.15rem;
+}
+
+.icons-circle {
+  color: #8eddce;
+  font-size: 0.3rem;
+  padding-right: 0.5rem;
+  vertical-align: middle;
+}

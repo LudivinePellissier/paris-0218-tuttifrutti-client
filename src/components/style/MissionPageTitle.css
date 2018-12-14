@@ -1,5 +1,5 @@
 .mission-page {
-  width: 100vw;
+  max-width: 100vw;
   height: 4.8vh;
   background-color: #7accbc;
   display: flex;
