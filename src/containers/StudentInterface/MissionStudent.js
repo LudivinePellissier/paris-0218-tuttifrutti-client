@@ -4,6 +4,7 @@ import MissionTitle from '../../components/MissionTitle.js'
 import MissionId from '../../components/MissionId.js'
 import MissionField from '../../components/MissionField.js'
 import MissionFiles from '../../components/MissionFiles.js'
+import MissionMessages from '../../components/MissionMessages.js'
 import MissionDeadline from '../../components/MissionDeadline.js'
 import MissionPrice from '../../components/MissionPrice.js'
 import MissionDescription from '../../components/MissionDescription.js'
@@ -11,7 +12,7 @@ import Button from '../../components/Button.js'
 import FormUpload from '../../components/FormUpload.js'
 import SendMessageStudent from '../../components/StudentInterface/SendMessageStudent.js'
 import '../style/Mission.css'
-import { getOneMission, missionDownloadFile } from '../../api.js'
+import { getOneMission, missionDownloadFile, getMessagesByMissionId } from '../../api.js'
 
 class MissionStudent extends React.Component {
 	state = {
@@ -28,6 +29,7 @@ class MissionStudent extends React.Component {
 		filesFromStudent: [],
 		open: false,
 		userType: 'student',
+		messages: [],
 	}
 
 	missionId = window.location.pathname.slice(8)
@@ -63,7 +65,13 @@ class MissionStudent extends React.Component {
 			.catch((error) => {
 				console.log(error)
 			})
+
+			getMessagesByMissionId(this.missionId)
+			.then(res => {
+				this.setState({ ...this.state, messages: res })
+			})
 	}
+
 
 	getFileName = id => {
 		const lawyerFile = this.state.filesFromLawyer.find(file => file.id === id)
@@ -123,6 +131,10 @@ class MissionStudent extends React.Component {
 					<div>
 					<p>Fichiers que vous avez envoyé :</p>
 					<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile}/>
+					</div>
+					<div>
+						<p>Messages</p>
+						<MissionMessages messages={this.state.messages}/>
 					</div>
 					<div className='buttons-mission'>
 						<div className='mission-student-block'>

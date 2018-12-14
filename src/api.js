@@ -196,6 +196,25 @@ export const missionReportProblem = (id, messageContent) => {
 	})
 }
 
+// LAWYER & STUDENT INTERFACE : SEND MESSAGE
+
+export const missionSendMessage = (message) => {
+	return axios.post(`${apiUrl}/missions/sendmessage`,
+	{ message })
+	.then(res => {
+		return res
+	})
+}
+
+// GET MESSAGE ON MISSION PAGE
+
+export const getMessagesByMissionId = (missionId) => {
+	return axios.get(`${apiUrl}${missionId}/messages`)
+	.then(res => {
+		return res.data
+	})
+}
+
 // LAWYER INTERFACE : SEND MESSAGE TO STUDENT
 
 export const missionSendMessageToStudent = (id, messageContent) => {
