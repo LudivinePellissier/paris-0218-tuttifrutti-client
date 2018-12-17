@@ -3,7 +3,7 @@ import React from 'react'
 const MissionFiles = ({files, download}) => {
   const showFiles = files => {
     if (files.length === 0) {
-      return <div><span>Aucun fichier n'a encore été partagé.</span></div>
+      return <div className='mission-nocontentyet'><span>Aucun fichier n'a encore été partagé.</span></div>
     } else {
       return files.map(file => 
         <div className='mission-files-onefile'>

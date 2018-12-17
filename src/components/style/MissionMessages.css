@@ -1,0 +1,76 @@
+.mission-messages-container {
+  width: 80%;
+}
+
+.mission-messages-onemessage {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.5rem;
+}
+
+.mission-messages-onemessage-reverse {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin-bottom: 1.5rem;
+  flex-direction: row-reverse;
+  justify-content: right;
+}
+
+.mission-messages-onemessage-infos {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mission-messages-onemessage-infos div:first-of-type {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background-color: #8eddce;
+  color: white;
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.mission-messages-onemessage-infos div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 0.7rem;
+  line-height: 1.1rem;
+  color: black;
+}
+
+.mission-messages-onemessage-message {
+  background-color:rgba(209, 242, 235, 1);
+  border-radius: 0 0.6rem 0.6rem 0;
+  color: black;
+  font-size: 1rem;
+  padding: 1rem;
+  margin-left: 0.5rem;
+  box-sizing: border-box;
+  text-align: justify;
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+
+.mission-messages-onemessage-message-reverse {
+  background-color:rgba(209, 242, 235, 0.4);
+  border-radius: 0.6rem 0 0 0.6rem;
+  color: black;
+  font-size: 1rem;
+  padding: 1rem;
+  margin-right: 0.5rem;
+  box-sizing: border-box;
+  text-align: justify;
+  display: flex;
+  align-items: center;
+  width: 90%;
+}

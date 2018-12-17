@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import Button from './Button.js'
 import './style/FormUpload.css'
+import PictoAdd from './PictoAdd.js'
 import { missionUploadFile, missionStockUploadedFileInfos } from '../api.js'
 
 class FormUpload extends Component {
@@ -36,7 +36,6 @@ class FormUpload extends Component {
     let formData = new FormData()
     formData.append('description', description)
     formData.append('selectedFile', selectedFile)
-    console.log(formData)
 
     this.setState({ uploading: true })
 
@@ -93,8 +92,14 @@ class FormUpload extends Component {
 
   render() {
     const uploadFile = this.state.selectedFile === ''
-      ? <label for='file'><div className='formupload-label-file'>Ajouter un fichier</div></label>
-      : <span style={{ display: this.state.fileUploaded === true ? 'none' : 'block', textAlign: 'center' }}>{this.state.selectedFile.name} <span className='delete-file' onClick={() => this.resetSelectedFile()}> x</span></span>
+      ? <label for='file'><div className='formupload-label-file'>
+          <i class="fas fa-plus-circle picto-add-file"></i>
+          <span>Ajouter un fichier</span></div>
+        </label>
+      : <span style={{ display: this.state.fileUploaded === true
+          ? 'none'
+          : 'block', textAlign: 'center' }}>{this.state.selectedFile.name} <span className='delete-file' onClick={() => this.resetSelectedFile()}> x</span>
+        </span>
 
     const sendFile = (this.state.fileUploaded === false
       ? <Button>Envoyer le document</Button>
@@ -103,7 +108,7 @@ class FormUpload extends Component {
     )
 
     return (
-      <center><form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit}>
         {uploadFile}
         {this.state.uploading ? 'Envoi en cours...' : ''}
         <input id='file' className='formupload-input-file'
@@ -114,7 +119,7 @@ class FormUpload extends Component {
         <div style={{ display: this.state.selectedFile !== '' ? 'block' : 'none' }}>{sendFile}</div>
         <div>{this.state.message}</div>
 
-      </form></center>
+      </form>
     )
 
   }

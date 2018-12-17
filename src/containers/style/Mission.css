@@ -35,7 +35,7 @@
   color: white;
   padding: 1rem;
   text-align: center;
-  margin: 0.035rem;
+  margin: 0 0.070rem 0.035rem 0;
 }
 
 .mission-block2 {
@@ -48,7 +48,7 @@
   color: white;
   padding: 1rem;
   text-align: center;
-  margin: 0.035rem;
+  margin: 0 0.035rem 0.070rem 0;
 
 }
 
@@ -65,13 +65,12 @@
 
 .mission-student-name {
   width: 100%;
-  display: flex;
-  justify-content:center;
+  background-color:  #8eddce;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: white;
   text-align: center;
-  margin: 0;
-  /* padding: 0.3rem 0;
-  background-color: #8eddce; */
-  /* color: white; */
+  padding: 0.6rem 0;
 }
 
 .mission-student-message {
@@ -141,11 +140,11 @@
 
 .mission-files-title hr {
   background-color: #1fa792;
-  min-width: 58%;
-  max-width: 73%;
   height: 1px;
   border: none;
-  padding-right: 0.1rem;
+  margin-left: 0.5rem;
+  display: flex;
+  flex-grow: 2;
 }
 
 .mission-files-title p {
@@ -153,19 +152,14 @@
   text-transform: uppercase;
   font-size: 0.9rem;
   font-weight: 400;
-  width: 27%;
-}
-
-.mission-files-newfile {
-  width: 15%;
-  margin: -0.7rem 0 0 0;
-  padding-left: 0.5rem;
-  box-sizing: content-box;
+  display: flex;
+  flex-basis: auto;
 }
 
 .icons {
   color: #8eddce;
   font-size: 1.15rem;
+  padding-left: 0.5rem;
 }
 
 .icons-circle {
@@ -173,4 +167,30 @@
   font-size: 0.3rem;
   padding-right: 0.5rem;
   vertical-align: middle;
+}
+
+.missions-messages {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.missions-messages-title {
+  background-color: #8eddce;
+  width: 100%;
+  text-align: center;
+  color: white;
+  padding: 0.3rem 0;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin: 4rem 0 2.3rem 0;
+  box-sizing: border-box;
+}
+
+.mission-nocontentyet {
+  text-align: center;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.5)
 }

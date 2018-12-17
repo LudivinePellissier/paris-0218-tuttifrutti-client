@@ -5,19 +5,24 @@ import './style/SendMessage.css'
 
 class SendMessage extends React.Component {
     state = {
-      // objet: '',
-      message: '',
+      userType: '',
 			authorId: '',
 			authorName: '',
-			missionId: this.props.missionId,
-			// studentId: this.props.studentId,
+      message: '',
+			missionId: '',
       displayForm: 'block',
       displayConfirm: 'none',
     }
 
     componentDidMount() {
+      console.log(this.props)
       userInfoLawyer()
-        .then(res => this.setState({ authorId: res._id, authorName: res.cabinet.slice(0,1) + '.' }))
+        .then(res => this.setState({ 
+          authorId: res._id, 
+          authorName: res.cabinet.slice(0,1) + '.',
+			    missionId: this.props.missionId,
+          userType: this.props.userType,
+        }))
     }
 
     UpdateField = event => {
@@ -33,11 +38,10 @@ class SendMessage extends React.Component {
 			const message = {
         date: Date.now(),
 				authorName: this.state.authorName,
-      	authorId: this.state.authorId,
+        authorId: this.state.authorId,
+        authorType: this.state.userType,
 				missionId: this.state.missionId,
         message: this.state.message,
-				// objet: this.state.objet,
-				// studentId: this.state.studentId
 			}
 
 			const id = this.state.missionId
@@ -52,9 +56,6 @@ class SendMessage extends React.Component {
             <h1 className="title-send-message">Envoyer un message</h1>
             <div className='form-send-message-container'>
               <form className="form-send-message" onSubmit={this.HandleSubmit}>
-                {/* <div className='form-div'>
-                  <input className='form-input-send-message' type="text" name="objet" placeholder="Objet du message" id="objet" onChange={this.UpdateField} required />
-                </div> */}
                 <div className='form-div'>
                   <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
                 </div>
