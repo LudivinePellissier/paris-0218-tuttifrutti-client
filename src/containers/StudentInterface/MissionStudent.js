@@ -12,7 +12,7 @@ import Button from '../../components/Button.js'
 import FormUpload from '../../components/FormUpload.js'
 import SendMessageStudent from '../../components/StudentInterface/SendMessageStudent.js'
 import '../style/Mission.css'
-import { getOneMission, missionDownloadFile, getMessagesByMissionId } from '../../api.js'
+import { getOneMission, missionDownloadFile, getMessagesByMissionId, missionDeleteFile } from '../../api.js'
 
 class MissionStudent extends React.Component {
 	state = {
@@ -96,6 +96,11 @@ class MissionStudent extends React.Component {
 			})
 	}
 
+	deleteFile = id => {
+		missionDeleteFile(id)
+			.then(() => window.location.reload())
+	}
+
 	render() {
 
 		const { open } = this.state
@@ -129,7 +134,7 @@ class MissionStudent extends React.Component {
 							<p>Fichiers envoyés par le cabinet</p>
 							<hr></hr>
 						</div>
-						<MissionFiles files={this.state.filesFromLawyer} download={this.downloadFile} />
+						<MissionFiles files={this.state.filesFromLawyer} sendedBy='lawyer' downloadFile={this.downloadFile} deleteFile={this.deleteFile} userType={this.state.userType}/>
 					</div>
 					<div>
 						<div className='mission-files'>
@@ -138,7 +143,7 @@ class MissionStudent extends React.Component {
 								<hr></hr>
 								<FormUpload missionId={this.missionId} userType={this.state.userType} />
 							</div>
-							<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile} />
+							<MissionFiles files={this.state.filesFromStudent} sendedBy='student' downloadFile={this.downloadFile} deleteFile={this.deleteFile} userType={this.state.userType}/>
 						</div>
 					</div>
 					<div className='missions-messages'>

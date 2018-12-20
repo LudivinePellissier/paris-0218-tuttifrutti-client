@@ -13,7 +13,7 @@ import MissionDescription from '../components/MissionDescription.js'
 import SendMessage from '../components/SendMessage.js'
 import './style/Mission.css'
 import FormUpload from '../components/FormUpload.js'
-import { changeStatusMission, getOneMission, getStudentFirstName, missionDownloadFile, getMessagesByMissionId } from '../api.js'
+import { changeStatusMission, getOneMission, getStudentFirstName, missionDownloadFile, getMessagesByMissionId, missionDeleteFile } from '../api.js'
 
 class Mission extends React.Component {
 	state = {
@@ -104,6 +104,11 @@ class Mission extends React.Component {
 			})
 	}
 
+	deleteFile = id => {
+		missionDeleteFile(id)
+			.then(() => window.location.reload())
+	}
+
 	render() {
 		const changeStatus = (event) => {
 			event.preventDefault()
@@ -161,20 +166,21 @@ class Mission extends React.Component {
 							<hr></hr>
 							<FormUpload missionId={this.missionId} userType={this.state.userType} />
 						</div>
-						<MissionFiles files={this.state.filesFromLawyer} download={this.downloadFile} />
+						<MissionFiles files={this.state.filesFromLawyer} sendedBy='lawyer' downloadFile={this.downloadFile} deleteFile={this.deleteFile} userType={this.state.userType}/>
 					</div>
 					<div className='mission-files'>
 						<div className='mission-files-title'>
 							<p>Fichiers remis par l'étudiant</p>
 							<hr></hr>
 						</div>
-						<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile} />
+						<MissionFiles files={this.state.filesFromStudent} sendedBy='student' downloadFile={this.downloadFile} deleteFile={this.deleteFile} userType={this.state.userType}/>
 					</div>
 					{/* <hr className='separator' /> */}
 					<div className='missions-messages'>
 						<p className='missions-messages-title'>Echanges avec l'étudiant</p>
 						<MissionMessages messages={this.state.messages} userType={this.state.userType} />
 					</div>
+					<SendMessage missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} />
 					<div className='buttons-mission'>
 						<div className='mission-student-block'>
 							<div onClick={noStudent ? undefined : this.onOpenModal} className='mission-student-message'>

@@ -176,7 +176,6 @@ export const missionStockUploadedFileInfos = (mission, fileName, fileId, userTyp
 }
 
 export const missionDownloadFile = id => {
-	console.log(id)
 	return axios.post(`${apiUrl}/download`, {id})
 	.then(res => {		
 		return {
@@ -184,6 +183,10 @@ export const missionDownloadFile = id => {
 			data: res.data.data.data,
 		}
 	})
+}
+
+export const missionDeleteFile = id => {
+	return axios.delete(`${apiUrl}/delete/${id}`)
 }
 
 // LAWYER INTERFACE : REPORT PROBLEM ON ONE FINISHED MISSION

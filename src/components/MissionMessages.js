@@ -2,8 +2,6 @@ import React from 'react'
 import './style/MissionMessages.css'
 
 const MissionMessages = ({userType, messages}) => {
-  console.log(userType)
-  console.log(messages)
   const setStyleOfOneMessage = (userType, authorType) => {
     let classOfOneMessage = 'mission-messages-onemessage'
     if (userType === authorType) {

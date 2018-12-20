@@ -10,12 +10,11 @@ class SendMessage extends React.Component {
 			authorName: '',
       message: '',
 			missionId: '',
-      displayForm: 'block',
-      displayConfirm: 'none',
+      // displayForm: 'block',
+      // displayConfirm: 'none',
     }
 
     componentDidMount() {
-      console.log(this.props)
       userInfoLawyer()
         .then(res => this.setState({ 
           authorId: res._id, 
@@ -32,7 +31,7 @@ class SendMessage extends React.Component {
     HandleSubmit = event => {
       event.preventDefault()
 
-      this.setState({ displayForm: 'none', displayConfirm: 'block' })
+      // this.setState({ displayForm: 'none', displayConfirm: 'block' })
       
 
 			const message = {
@@ -45,15 +44,17 @@ class SendMessage extends React.Component {
 			}
 
 			const id = this.state.missionId
-			missionSendMessage(message)
+      missionSendMessage(message)
+        .then(() => window.location.reload())
     }
 
   render() {
     return (
       <div>
-        <div style={{ display: this.state.displayForm }} className='send-message-content'>
+        {/* <div style={{ display: this.state.displayForm }} className='send-message-content'> */}
+        <div className='send-message-content'>
           <div>
-            <h1 className="title-send-message">Envoyer un message</h1>
+            {/* <h1 className="title-send-message">Envoyer un message</h1> */}
             <div className='form-send-message-container'>
               <form className="form-send-message" onSubmit={this.HandleSubmit}>
                 <div className='form-div'>
@@ -64,12 +65,12 @@ class SendMessage extends React.Component {
             </div>
           </div>
         </div>
-        <div style={{ display: this.state.displayConfirm }} className='send-message-content'>
+        {/* <div style={{ display: this.state.displayConfirm }} className='send-message-content'>
           <p>Votre message a bien été envoyé.</p>
           <div onClick={this.props.close}>
             <Button>Retour à la mission</Button>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
