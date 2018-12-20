@@ -5,19 +5,23 @@ import './style/SendMessage.css'
 
 class SendMessage extends React.Component {
     state = {
-      // objet: '',
-      message: '',
+      userType: '',
 			authorId: '',
 			authorName: '',
-			missionId: this.props.missionId,
-			// studentId: this.props.studentId,
-      displayForm: 'block',
-      displayConfirm: 'none',
+      message: '',
+			missionId: '',
+      // displayForm: 'block',
+      // displayConfirm: 'none',
     }
 
     componentDidMount() {
       userInfoLawyer()
-        .then(res => this.setState({ authorId: res._id, authorName: res.cabinet.slice(0,1) + '.' }))
+        .then(res => this.setState({ 
+          authorId: res._id, 
+          authorName: res.cabinet.slice(0,1) + '.',
+			    missionId: this.props.missionId,
+          userType: this.props.userType,
+        }))
     }
 
     UpdateField = event => {
@@ -27,34 +31,32 @@ class SendMessage extends React.Component {
     HandleSubmit = event => {
       event.preventDefault()
 
-      this.setState({ displayForm: 'none', displayConfirm: 'block' })
+      // this.setState({ displayForm: 'none', displayConfirm: 'block' })
       
 
 			const message = {
         date: Date.now(),
 				authorName: this.state.authorName,
-      	authorId: this.state.authorId,
+        authorId: this.state.authorId,
+        authorType: this.state.userType,
 				missionId: this.state.missionId,
         message: this.state.message,
-				// objet: this.state.objet,
-				// studentId: this.state.studentId
 			}
 
 			const id = this.state.missionId
-			missionSendMessage(message)
+      missionSendMessage(message)
+        .then(() => window.location.reload())
     }
 
   render() {
     return (
       <div>
-        <div style={{ display: this.state.displayForm }} className='send-message-content'>
+        {/* <div style={{ display: this.state.displayForm }} className='send-message-content'> */}
+        <div className='send-message-content'>
           <div>
-            <h1 className="title-send-message">Envoyer un message</h1>
+            {/* <h1 className="title-send-message">Envoyer un message</h1> */}
             <div className='form-send-message-container'>
               <form className="form-send-message" onSubmit={this.HandleSubmit}>
-                {/* <div className='form-div'>
-                  <input className='form-input-send-message' type="text" name="objet" placeholder="Objet du message" id="objet" onChange={this.UpdateField} required />
-                </div> */}
                 <div className='form-div'>
                   <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
                 </div>
@@ -63,12 +65,12 @@ class SendMessage extends React.Component {
             </div>
           </div>
         </div>
-        <div style={{ display: this.state.displayConfirm }} className='send-message-content'>
+        {/* <div style={{ display: this.state.displayConfirm }} className='send-message-content'>
           <p>Votre message a bien été envoyé.</p>
           <div onClick={this.props.close}>
             <Button>Retour à la mission</Button>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }

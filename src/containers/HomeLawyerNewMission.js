@@ -7,7 +7,7 @@ const HomeLawyerNewMission = () => (
   <div className='home-lawyer-newmission'>
     <div>
       <MissionTitle text='Créer une nouvelle mission' />
-      <PictoAdd />
+      <PictoAdd classStyle='picto-add-mission' />
     </div>
   </div>
 )

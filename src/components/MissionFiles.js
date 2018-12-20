@@ -1,9 +1,17 @@
 import React from 'react'
 
-const MissionFiles = ({files, download}) => {
+const MissionFiles = ({files, sendedBy, downloadFile, deleteFile, userType}) => {
+  const showDeleteOption = fileId => {
+    if (userType === sendedBy) {
+      return (
+        <i onClick={() => deleteFile(fileId)} style={{cursor: 'pointer'}}  class='fas fa-trash-alt icons' title='Supprimer'></i>
+      )
+    }
+  }
+
   const showFiles = files => {
     if (files.length === 0) {
-      return <div><span>Aucun fichier n'a encore été partagé.</span></div>
+      return <div className='mission-nocontentyet'><span>Aucun fichier n'a encore été partagé.</span></div>
     } else {
       return files.map(file => 
         <div className='mission-files-onefile'>
@@ -12,8 +20,8 @@ const MissionFiles = ({files, download}) => {
             <span>{file.name}</span>
           </div>
           <div>
-            <i onClick={() => download(file.id)} style={{cursor: 'pointer'}} class='fas fa-file-download icons' title='Télécharger'></i>
-            <i class='fas fa-trash-alt icons' title='Supprimer'></i>
+            <i onClick={() => downloadFile(file.id)} style={{cursor: 'pointer'}} class='fas fa-file-download icons' title='Télécharger'></i>
+            {showDeleteOption(file)}
           </div>
         </div>
       )

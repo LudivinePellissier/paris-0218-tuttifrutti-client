@@ -1,22 +1,22 @@
 .formupload-label-file {
     cursor: pointer;
-    width: 8rem;
-    height: 2rem;
-    margin-top: 1rem;
-    background-color: #7accbc;
-    color: white;
-    border: none;
-    border-radius: 0%;
+    display: flex;
+    -ms-flex-align: right;
+    align-items: right;
     text-transform: uppercase;
-    outline: none;
-    box-shadow: none;
-    font-size: 0.8rem;
-    text-align: center;
+    font-size: 0.85rem;
+    flex-basis: auto;
+    margin-left: 0.6rem;
 }
 
-.formupload-label-file:hover {
-    background-color: #1fa792;
-    font-weight: 600;
+.formupload-label-file span {
+    color: #1fa792;
+}
+
+.picto-add-file {
+    padding-right: 0.3rem;
+    font-size: 0.95rem;
+    color: #1fa792;
 }
 
 .formupload-input-file {
