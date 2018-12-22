@@ -2,6 +2,7 @@ import React from 'react'
 
 const MissionFiles = ({files, sendedBy, downloadFile, deleteFile, userType}) => {
   const showDeleteOption = fileId => {
+    console.log(fileId)
     if (userType === sendedBy) {
       return (
         <i onClick={() => deleteFile(fileId)} style={{cursor: 'pointer'}}  class='fas fa-trash-alt icons' title='Supprimer'></i>
@@ -21,7 +22,7 @@ const MissionFiles = ({files, sendedBy, downloadFile, deleteFile, userType}) => 
           </div>
           <div>
             <i onClick={() => downloadFile(file.id)} style={{cursor: 'pointer'}} class='fas fa-file-download icons' title='Télécharger'></i>
-            {showDeleteOption(file)}
+            {showDeleteOption(file.id)}
           </div>
         </div>
       )
