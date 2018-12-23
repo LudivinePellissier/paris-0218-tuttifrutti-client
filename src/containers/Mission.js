@@ -179,8 +179,8 @@ class Mission extends React.Component {
 					<div className='missions-messages'>
 						<p className='missions-messages-title'>Echanges avec l'étudiant</p>
 						<MissionMessages messages={this.state.messages} userType={this.state.userType} />
+						<SendMessage missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} />
 					</div>
-					<SendMessage missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} />
 					<div className='buttons-mission'>
 						<div className='mission-student-block'>
 							<div onClick={noStudent ? undefined : this.onOpenModal} className='mission-student-message'>

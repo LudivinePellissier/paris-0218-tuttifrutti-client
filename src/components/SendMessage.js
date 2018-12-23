@@ -50,28 +50,31 @@ class SendMessage extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* <div style={{ display: this.state.displayForm }} className='send-message-content'> */}
-        <div className='send-message-content'>
-          <div>
-            {/* <h1 className="title-send-message">Envoyer un message</h1> */}
             <div className='form-send-message-container'>
               <form className="form-send-message" onSubmit={this.HandleSubmit}>
-                <div className='form-div'>
+                {/* <div className='form-div'> */}
                   <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
-                </div>
-                <Button>Envoyer</Button>
+                {/* </div> */}
+                {/* <Button>Envoyer</Button> */}
+                <button className='send-message-button'title='Envoyer' type='submit'>
+                <span className='far fa-share-square'></span>
+                </button>
               </form>
             </div>
-          </div>
-        </div>
-        {/* <div style={{ display: this.state.displayConfirm }} className='send-message-content'>
-          <p>Votre message a bien été envoyé.</p>
-          <div onClick={this.props.close}>
-            <Button>Retour à la mission</Button>
-          </div>
-        </div> */}
-      </div>
+      // <div>
+      //   {/* <div style={{ display: this.state.displayForm }} className='send-message-content'> */}
+      //   <div className='send-message-content'>
+      //     <div>
+      //       {/* <h1 className="title-send-message">Envoyer un message</h1> */}
+      //     </div>
+      //   </div>
+      //   {/* <div style={{ display: this.state.displayConfirm }} className='send-message-content'>
+      //     <p>Votre message a bien été envoyé.</p>
+      //     <div onClick={this.props.close}>
+      //       <Button>Retour à la mission</Button>
+      //     </div>
+      //   </div> */}
+      // </div>
     )
   }
 }
