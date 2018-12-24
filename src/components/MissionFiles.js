@@ -1,39 +1,80 @@
 import React from 'react'
+import Modal from 'react-responsive-modal'
+import Button from './Button.js'
 
-const MissionFiles = ({files, sendedBy, downloadFile, deleteFile, userType}) => {
-  const showDeleteOption = fileId => {
-    console.log(fileId)
-    if (userType === sendedBy) {
+class MissionFiles extends React.Component {
+  state = {
+    files: '',
+    fileToDelete: {
+      id: '',
+      name: ''
+    },
+    open: false,
+  }
+
+	onOpenModal = (event, id, name) => {
+    event.preventDefault()
+		this.setState({ open: true, fileToDelete: { id: id, name: name,} })
+	}
+
+	onCloseModal = () => {
+		this.setState({ open: false })
+	}
+
+  deleteConfirmation = (id, name) => {
+    return (
+    <div className='mission-files-delete-confirm'>
+      <p>Voulez-vous vraiment supprimer ce fichier ?</p>
+      <p>{name}</p>
+      <br/>
+      <div className='mission-files-delete-confirm-buttons'>
+        <Button onClick={this.onCloseModal} >Annuler</Button>
+        <Button onClick={() => this.props.deleteFile(id)}>Confirmer</Button>
+      </div>
+    </div>
+    )
+  }
+
+  showDeleteOption = (id, name) => {
+    if (this.props.userType === this.props.sendedBy) {
       return (
-        <i onClick={() => deleteFile(fileId)} style={{cursor: 'pointer'}}  class='fas fa-trash-alt icons' title='Supprimer'></i>
+        <div>
+          <i onClick={(e) => this.onOpenModal(e, id, name)} style={{cursor: 'pointer'}}  class='fas fa-trash-alt icons' title='Supprimer'></i>
+        </div>
       )
     }
   }
 
-  const showFiles = files => {
+  showFiles = files => {
     if (files.length === 0) {
       return <div className='mission-nocontentyet'><span>Aucun fichier n'a encore été partagé.</span></div>
     } else {
-      return files.map(file => 
+      return files.map(file => (
         <div className='mission-files-onefile'>
           <div>
             <span><i class='fas fa-circle icons-circle'></i></span>
             <span>{file.name}</span>
           </div>
           <div>
-            <i onClick={() => downloadFile(file.id)} style={{cursor: 'pointer'}} class='fas fa-file-download icons' title='Télécharger'></i>
-            {showDeleteOption(file.id)}
+            <i onClick={() => this.props.downloadFile(file.id)} style={{cursor: 'pointer'}} class='fas fa-file-download icons' title='Télécharger'></i>
+            {this.showDeleteOption(file.id, file.name)}
           </div>
-        </div>
-      )
+        </div> 
+      ))
     } 
   }
 
-  return (
-    <div>
-      <div>{showFiles(files)}</div>
-    </div>
-  )
+  render() {
+
+    return (
+      <div>
+        <div>{this.showFiles(this.props.files)}</div>
+        <Modal open={this.state.open} onClose={this.onCloseModal} center>
+          {this.deleteConfirmation(this.state.fileToDelete.id, this.state.fileToDelete.name)}
+        </Modal>
+      </div>
+    )
+  }
 }
 
 export default MissionFiles

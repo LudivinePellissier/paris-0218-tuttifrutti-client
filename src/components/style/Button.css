@@ -9,12 +9,12 @@
   text-transform: uppercase;
   outline: none;
   box-shadow: none;
+  font-size: 0.8rem;
 }
 
 .button:hover {
   cursor: pointer;
   background-color: #1fa792;
-  font-weight: 600;
 }
 
 /* .button:disabled {

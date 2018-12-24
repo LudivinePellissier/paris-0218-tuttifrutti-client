@@ -1,6 +1,5 @@
 import React from 'react'
 import { userInfoLawyer, missionSendMessage } from '../api.js'
-import Button from './Button.js'
 import './style/SendMessage.css'
 
 class SendMessage extends React.Component {
@@ -10,8 +9,6 @@ class SendMessage extends React.Component {
 			authorName: '',
       message: '',
 			missionId: '',
-      // displayForm: 'block',
-      // displayConfirm: 'none',
     }
 
     componentDidMount() {
@@ -31,9 +28,6 @@ class SendMessage extends React.Component {
     HandleSubmit = event => {
       event.preventDefault()
 
-      // this.setState({ displayForm: 'none', displayConfirm: 'block' })
-      
-
 			const message = {
         date: Date.now(),
 				authorName: this.state.authorName,
@@ -43,34 +37,19 @@ class SendMessage extends React.Component {
         message: this.state.message,
 			}
 
-			const id = this.state.missionId
       missionSendMessage(message)
         .then(() => window.location.reload())
     }
 
   render() {
     return (
-      <div>
-        {/* <div style={{ display: this.state.displayForm }} className='send-message-content'> */}
-        <div className='send-message-content'>
-          <div>
-            {/* <h1 className="title-send-message">Envoyer un message</h1> */}
-            <div className='form-send-message-container'>
-              <form className="form-send-message" onSubmit={this.HandleSubmit}>
-                <div className='form-div'>
-                  <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
-                </div>
-                <Button>Envoyer</Button>
-              </form>
-            </div>
-          </div>
-        </div>
-        {/* <div style={{ display: this.state.displayConfirm }} className='send-message-content'>
-          <p>Votre message a bien été envoyé.</p>
-          <div onClick={this.props.close}>
-            <Button>Retour à la mission</Button>
-          </div>
-        </div> */}
+      <div className='form-send-message-container'>
+        <form className="form-send-message" onSubmit={this.HandleSubmit}>
+          <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
+          <button className='send-message-button' title='Envoyer' type='submit'>
+            <span className='far fa-share-square'></span>
+          </button>
+        </form>
       </div>
     )
   }
