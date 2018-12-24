@@ -65,6 +65,7 @@ class Mission extends React.Component {
 			.catch((error) => {
 				console.log(error)
 			})
+
 		if (this.state.student === '') {
 			this.setState({ ...this.state, student: `La mission n'a pas encore été attribuée.` })
 		} else {
@@ -110,24 +111,25 @@ class Mission extends React.Component {
 	}
 
 	render() {
+		
+		const { open } = this.state
+
 		const changeStatus = (event) => {
 			event.preventDefault()
 			this.setState({ ...this.state, finished: true })
 			changeStatusMission(this.missionId)
-				.then(res => {
+				.then(() => {
 					window.location.replace('/missions')
 				})
 		}
 
-		const { open } = this.state
-
 		const noStudent = this.state.student === `La mission n'a pas encore été attribuée.`
 
-		const styleSendMessage = {
-			cursor: 'auto',
-			backgroundColor: '#add',
-			fontWeight: '400'
-		}
+		// const styleSendMessage = {
+		// 	cursor: 'auto',
+		// 	backgroundColor: '#add',
+		// 	fontWeight: '400'
+		// }
 
 		const studentText = this.state.student !== `La mission n'a pas encore été attribuée.`
 			?
@@ -155,7 +157,9 @@ class Mission extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
+					<div className='mission-student-name'>
+						<MissionStudent text={studentText} />
+					</div>
 					<br />
 					<div className='mission-description'>
 						<MissionDescription text={this.state.description} />
@@ -175,23 +179,12 @@ class Mission extends React.Component {
 						</div>
 						<MissionFiles files={this.state.filesFromStudent} sendedBy='student' downloadFile={this.downloadFile} deleteFile={this.deleteFile} userType={this.state.userType}/>
 					</div>
-					{/* <hr className='separator' /> */}
 					<div className='missions-messages'>
 						<p className='missions-messages-title'>Echanges avec l'étudiant</p>
 						<MissionMessages messages={this.state.messages} userType={this.state.userType} />
 						<SendMessage missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} />
 					</div>
 					<div className='buttons-mission'>
-						<div className='mission-student-block'>
-							<div onClick={noStudent ? undefined : this.onOpenModal} className='mission-student-message'>
-								<Button
-									style={{
-										cursor: noStudent ? 'auto' : undefined,
-										backgroundColor: noStudent ? '#add' : undefined,
-										fontWeight: noStudent ? '400' : undefined
-									}}
-								>Envoyer un message</Button></div>
-							{/* <div className='mission-student-doc-upload'><FormUpload missionId={this.missionId} userType={this.state.userType}/></div> */}
 							<div onClick={noStudent ? undefined : changeStatus} className='mission-student-finished'>
 								<Button
 									style={{
@@ -203,13 +196,12 @@ class Mission extends React.Component {
 							</div>
 						</div>
 					</div>
-					{/* <hr className='separator' /> */}
 
 					<Modal open={open} onClose={this.onCloseModal} center>
-						<SendMessage missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} />
+						{/* <SendMessage missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} /> */}
 					</Modal>
 				</div>
-			</div>
+			// </div>
 		)
 	}
 }

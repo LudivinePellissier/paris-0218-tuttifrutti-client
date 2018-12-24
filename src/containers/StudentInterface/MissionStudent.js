@@ -31,23 +31,21 @@ class MissionStudent extends React.Component {
 		userType: 'student',
 		messages: [],
 	}
-
-	missionId = window.location.pathname.slice(8)
-
+	
 	onOpenModal = (event) => {
 		event.preventDefault()
 		this.setState({ open: true })
 	}
-
+	
 	onCloseModal = () => {
 		this.setState({ open: false })
 	}
+	
+	missionId = window.location.pathname.slice(8)
 
 	async componentDidMount() {
-		console.log(this.missionId)
 		await getOneMission(this.missionId)
 			.then(res => {
-				console.log(res.data)
 				this.setState({
 					id: res.data._id,
 					lawyer: res.data.author,
@@ -102,7 +100,7 @@ class MissionStudent extends React.Component {
 	}
 
 	render() {
-
+		
 		const { open } = this.state
 
 		return (
@@ -149,15 +147,10 @@ class MissionStudent extends React.Component {
 					<div className='missions-messages'>
 						<p className='missions-messages-title'>Echanges avec le cabinet</p>
 						<MissionMessages messages={this.state.messages} userType={this.state.userType} />
-					</div>
-					<div className='buttons-mission'>
-						<div className='mission-student-block'>
-							<div onClick={this.onOpenModal} className='mission-student-message'>
-								<Button>Envoyer un message</Button></div>
-						</div>
+						<SendMessageStudent missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} />
 					</div>
 					<Modal open={open} onClose={this.onCloseModal} center>
-						<SendMessageStudent missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} />
+						{/* <SendMessageStudent missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} /> */}
 					</Modal>
 				</div>
 			</div>

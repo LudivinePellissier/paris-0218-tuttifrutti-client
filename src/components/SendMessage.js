@@ -43,14 +43,14 @@ class SendMessage extends React.Component {
 
   render() {
     return (
-            <div className='form-send-message-container'>
-              <form className="form-send-message" onSubmit={this.HandleSubmit}>
-                  <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
-                <button className='send-message-button' title='Envoyer' type='submit'>
-                <span className='far fa-share-square'></span>
-                </button>
-              </form>
-            </div>
+      <div className='form-send-message-container'>
+        <form className="form-send-message" onSubmit={this.HandleSubmit}>
+          <textarea className='form-textarea-send-message' name="message" placeholder="Message" id="message" onChange={this.UpdateField} required />
+          <button className='send-message-button' title='Envoyer' type='submit'>
+            <span className='far fa-share-square'></span>
+          </button>
+        </form>
+      </div>
     )
   }
 }
