@@ -125,12 +125,6 @@ class Mission extends React.Component {
 
 		const noStudent = this.state.student === `La mission n'a pas encore été attribuée.`
 
-		// const styleSendMessage = {
-		// 	cursor: 'auto',
-		// 	backgroundColor: '#add',
-		// 	fontWeight: '400'
-		// }
-
 		const studentText = this.state.student !== `La mission n'a pas encore été attribuée.`
 			?
 			`La mission a été attribuée à ${this.state.studentName}.`
