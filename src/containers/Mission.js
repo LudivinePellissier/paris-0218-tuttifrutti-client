@@ -29,18 +29,8 @@ class Mission extends React.Component {
 		finished: '',
 		filesFromLawyer: [],
 		filesFromStudent: [],
-		open: false,
 		userType: 'lawyer',
 		messages: [],
-	}
-
-	onOpenModal = (event) => {
-		event.preventDefault()
-		this.setState({ open: true })
-	}
-
-	onCloseModal = () => {
-		this.setState({ open: false })
 	}
 
 	missionId = window.location.pathname
@@ -111,8 +101,6 @@ class Mission extends React.Component {
 	}
 
 	render() {
-		
-		const { open } = this.state
 
 		const changeStatus = (event) => {
 			event.preventDefault()
@@ -190,12 +178,7 @@ class Mission extends React.Component {
 							</div>
 						</div>
 					</div>
-
-					<Modal open={open} onClose={this.onCloseModal} center>
-						{/* <SendMessage missionId={this.state.id} close={this.onCloseModal} userType={this.state.userType} /> */}
-					</Modal>
 				</div>
-			// </div>
 		)
 	}
 }
