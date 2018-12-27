@@ -26,13 +26,6 @@ class Login extends React.Component {
       email: this.state.email,
       password: this.state.password
     }
-    // fetch(`http://localhost:3030/loginadmin`, {
-    //   method: 'post',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ creds })
-		// })
 		loginAdmin(creds)
 			.then(response => {
 				return response.json()

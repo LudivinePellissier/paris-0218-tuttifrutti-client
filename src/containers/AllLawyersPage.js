@@ -11,11 +11,6 @@ class AllLawyersPage extends React.Component {
     if (token === null) {
       window.location.replace('/loginadmin')
     } else {
-      // fetch(`http://localhost:3030/secure`, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`
-      //   }
-			// })
 			verifToken(token)
 			.then(response => {
         response.json().then(responseJson => {

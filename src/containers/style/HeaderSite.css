@@ -11,16 +11,31 @@
   width: 50%;
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: flex-start;
-  margin-left: 2.5rem;
-  font-size: 0.8rem;
+  align-items: center;
+}
+
+.header-site-logo-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #1fa792;
 }
 
 .logo-litta {
-  width: 7rem;
-  height: 7rem;
-  border-radius: 50%;
+  width: auto;
+  height: 14vh;
+  margin: 0 1rem 0 2.5rem;
+}
+
+.name-litta :first-child {
+  font-size: 2rem;
+}
+
+.name-litta :last-child {
+  font-size: 0.9rem;
+  font-weight: 300;
 }
 
 .header-site-logout {

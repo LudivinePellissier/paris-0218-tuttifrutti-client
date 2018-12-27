@@ -24,7 +24,6 @@ const MissionMessages = ({ userType, messages }) => {
     } else {
       const sortedMessages = messages.sort((a, b) => a.date - b.date)
       return sortedMessages.map(message => {
-        console.log(message.authorType)
         const formatedDate = new Date(message.date).toLocaleDateString('fr-FR')
         const formatedTime = new Date(message.date).toLocaleTimeString('fr-FR').slice(0, 5)
 

@@ -3,7 +3,7 @@ import './style/MissionPageTitle.css'
 
 const MissionPageTitle = ({text}) => (
   <div className='mission-page'>
-    <p className='mission-page-title'>{text}</p>
+    <span className='mission-page-title'>{text}</span>
   </div>
 )
 

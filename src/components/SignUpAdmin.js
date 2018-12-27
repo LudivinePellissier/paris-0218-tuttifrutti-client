@@ -40,11 +40,6 @@ class SignUp extends React.Component {
       this.setState({ hasErrorNotIdentic: true, hasErrorTooShort: false })
     } else {
 			signUpAdmin(user)
-      // axios.post(`http://localhost:3030/signupadmin`, { user })
-      //   .then(res => {
-      //     console.log(res)
-      //     console.log(res.data)
-      //   })
       this.setState({ displayForm: 'none', displayMessage: 'block' })
     }
   }

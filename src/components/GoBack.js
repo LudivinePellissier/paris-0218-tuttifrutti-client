@@ -3,7 +3,7 @@ import './style/GoBack.css'
 
 const GoBack = ({text}) => (
   <div>
-    <p className='goback'>{text}</p>
+    <span className='goback'>{text}</span>
   </div>
 )
 

@@ -19,7 +19,7 @@ class AllStudents extends React.Component {
 				this.setState({ allUsers: res.data })
 			})
 			.catch((error) => {
-				console.log(error);
+				console.log(error)
 			})
 	}
 
