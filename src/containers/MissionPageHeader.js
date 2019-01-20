@@ -8,14 +8,11 @@ class MissionPageHeader extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className='header-mission-page'>
-					<div className='header-goback'>
-						<Link to={this.props.to}><GoBack text={this.props.text} /></Link>
-					</div>
-					<div className='header-title'>
-						<MissionPageTitle text={this.props.title} />
-					</div>
-					<div className='header-right'></div>
+				<div className='header-goback'>
+					<Link to={this.props.to}><GoBack text={this.props.text} /></Link>
+				</div>
+				<div className='header-title'>
+					<MissionPageTitle text={this.props.title} />
 				</div>
 			</div>
 		)
