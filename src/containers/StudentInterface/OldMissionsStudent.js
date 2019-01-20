@@ -42,7 +42,6 @@ class OldMissionsStudent extends React.Component {
 				}))
 			.then(() => {
 				const studentId = this.state.student.id
-				console.log(studentId)
 				getOldMissionsStudent(studentId)
 					.then(res => {
 						this.setState({ oldMissions: res })

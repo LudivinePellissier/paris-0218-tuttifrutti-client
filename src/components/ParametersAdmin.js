@@ -47,7 +47,6 @@ class ParametersAdmin extends React.Component {
 		if (password === passwordConfirm) {
 			updateInfoAdmin(user)
 			this.setState({ confirmUpdate: true })
-			console.log(this.props.update)
 			this.props.update(this.state.admin.firstName, this.state.admin.lastName)
 			this.hideUpdateForm()
 		} else {
