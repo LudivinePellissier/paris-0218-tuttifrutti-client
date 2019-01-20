@@ -26,7 +26,6 @@ const MissionMessages = ({ userType, messages }) => {
       return sortedMessages.map(message => {
         const formatedDate = new Date(message.date).toLocaleDateString('fr-FR')
         const formatedTime = new Date(message.date).toLocaleTimeString('fr-FR').slice(0, 5)
-
         return (
           <div className={setStyleOfOneMessage(userType, message.authorType)}>
             <div className='mission-messages-onemessage-infos'>
