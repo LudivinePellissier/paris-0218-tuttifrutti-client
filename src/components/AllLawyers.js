@@ -56,7 +56,7 @@ class AllLawyers extends React.Component {
 				this.setState({ allUsers: res })
 			})
 			.catch((error) => {
-				console.log(error)
+				console.log(error);
 			})
 	}
 

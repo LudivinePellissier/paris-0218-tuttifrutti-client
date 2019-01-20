@@ -27,6 +27,7 @@ class SendMessage extends React.Component {
 
     HandleSubmit = event => {
       event.preventDefault()
+
 			const message = {
         date: Date.now(),
 				authorName: this.state.authorName,
