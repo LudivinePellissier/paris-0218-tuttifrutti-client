@@ -164,6 +164,7 @@ export const changeStatusMission = missionPath => {
 // LAWYER INTERFACE : UPLAOD FILE
 
 export const missionUploadFile = file => {
+	console.log(file)
 	return axios.post(`${apiUrl}/upload`, file)
 	.then(res => {
 		return res
@@ -348,6 +349,7 @@ export const getOldMissionsStudent = studentId => {
 }
 
 export const getMissionsByStudentId = studentId => {
+	console.log(studentId)
 	return axios.post(`${apiUrl}/student/missionsfiltered`,
 	{ studentId })
 		.then(res => res.data)

@@ -6,6 +6,7 @@ import MissionTitle from '../components/MissionTitle.js'
 import MissionId from '../components/MissionId.js'
 import MissionField from '../components/MissionField.js'
 import MissionDeadline from '../components/MissionDeadline.js'
+// import './style/AllMissions.css'
 
 class EachMissionAdmin extends React.Component {
   state = {
