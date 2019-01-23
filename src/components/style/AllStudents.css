@@ -1,9 +1,15 @@
 .all-students-container {
   display: flex;
   flex-wrap: wrap;
+  min-height: 70.3vh;
 }
 
 .each-student-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   width: 20%;
   margin: 0.07rem;
   padding: 2rem;

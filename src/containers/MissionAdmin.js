@@ -24,7 +24,8 @@ class MissionAdmin extends React.Component {
 		finished: '',
 		filesFromLawyer: [],
 		filesFromStudent: [],
-		open: false
+		open: false,
+		userType: 'admin',
 	}
 
 	missionId = window.location.pathname.slice(6)
@@ -74,13 +75,13 @@ class MissionAdmin extends React.Component {
 		missionDownloadFile(id)
 			.then(async res => {
 				const dataFile = new Uint8Array(res.data)
-				const blobDataFile = new Blob([dataFile], {type: res.type})
+				const blobDataFile = new Blob([dataFile], { type: res.type })
 				const link = document.createElement('a')
 				const fileName = this.getFileName(id)
 				link.href = window.URL.createObjectURL(blobDataFile)
 				link.download = fileName
 				link.click()
-		})
+			})
 	}
 
 	render() {
@@ -110,19 +111,28 @@ class MissionAdmin extends React.Component {
 							</div>
 						</div>
 					</div>
+					<div className='mission-student-name'>
+						<MissionStudent text={studentText} />
+					</div>
 					<br />
 					<div className='mission-description'>
 						<MissionDescription text={this.state.description} />
 					</div>
-					<div>
-					<p>Fichiers envoyés par le cabinet :</p>
-					<MissionFiles files={this.state.filesFromLawyer} download={this.downloadFile}/>
+					<div className='mission-files'>
+						<div className='mission-files-title'>
+							<p>Fichiers remis par l'avocat</p>
+							<hr></hr>
+						</div>
+						<MissionFiles files={this.state.filesFromLawyer} sendedBy='lawyer' downloadFile={this.downloadFile} userType={this.state.userType} />
 					</div>
-					<div>
-					<p>Fichiers envoyés par l'étudiant :</p>
-					<MissionFiles files={this.state.filesFromStudent} download={this.downloadFile}/>
+					<div className='mission-files'>
+						<div className='mission-files-title'>
+							<p>Fichiers remis par l'étudiant</p>
+							<hr></hr>
+						</div>
+						<MissionFiles files={this.state.filesFromStudent} sendedBy='student' downloadFile={this.downloadFile} userType={this.state.userType} />
 					</div>
-					<div className='mission-student-name'><MissionStudent text={studentText} /></div>
+					<br />
 				</div>
 			</div>
 		)
