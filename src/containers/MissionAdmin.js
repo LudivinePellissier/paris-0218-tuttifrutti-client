@@ -6,6 +6,7 @@ import MissionFiles from '../components/MissionFiles.js'
 import MissionDeadline from '../components/MissionDeadline.js'
 import MissionPrice from '../components/MissionPrice.js'
 import MissionStudent from '../components/MissionStudent.js'
+import MissionLawyer from '../components/MissionLawyer.js'
 import MissionDescription from '../components/MissionDescription.js'
 import './style/Mission.css'
 import { getOneMission, getStudentFirstName, missionDownloadFile } from '../api.js'
@@ -111,9 +112,17 @@ class MissionAdmin extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className='mission-student-name'>
+					<div class='mission-infos-block'>
+						<div className='mission-block1'>
+						<MissionLawyer text={studentText} />
+						</div>
+						<div className='mission-block2'>
 						<MissionStudent text={studentText} />
+						</div>
 					</div>
+					{/* <div className='mission-student-name'>
+						<MissionStudent text={studentText} />
+					</div> */}
 					<br />
 					<div className='mission-description'>
 						<MissionDescription text={this.state.description} />
