@@ -15,9 +15,9 @@ class NewMission extends React.Component {
       deadline: '',
       price: '',
       description: '',
-      finished: false,
+      // finished: false,
       author: '',
-      student: ''
+      // student: null,
     },
     fields: Fields.mainFields,
     subFields: subFields,

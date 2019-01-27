@@ -20,7 +20,8 @@ class MissionConfirm extends Component {
 		user: '',
 		missionId: '',
 		mission: '',
-		response: ''
+		response: '',
+		student: null,
 	}
 
 	componentWillMount() {
@@ -67,7 +68,7 @@ class MissionConfirm extends Component {
 
 	showMessage = () => {
 		return (
-			this.state.mission.student !== '' && this.state.response === 'Ok'
+			this.state.mission.student !== null && this.state.response === 'Attributed'
 				?
 				<div><p className='mission-confirm-info'>La mission vous a été attribuée.
 				<br />
@@ -119,7 +120,7 @@ class MissionConfirm extends Component {
 										<MissionDescription text={this.state.mission.description} />
 									</div>
 									<br />
-									{this.state.mission.student === '' && this.state.response === '' ? this.showConfirmButton() : this.showMessage()}
+									{this.state.mission.student === null && this.state.response === '' ? this.showConfirmButton() : this.showMessage()}
 								</div>
 							</div>
 						</div>

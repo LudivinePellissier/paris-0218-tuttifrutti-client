@@ -23,7 +23,7 @@ class Mission extends React.Component {
 		subField: '',
 		deadline: '',
 		price: '',
-		student: ``,
+		student: null,
 		studentName: '',
 		description: '',
 		finished: '',
@@ -56,13 +56,11 @@ class Mission extends React.Component {
 				console.log(error)
 			})
 
-		if (this.state.student === '') {
-			this.setState({ ...this.state, student: `La mission n'a pas encore été attribuée.` })
-		} else {
+		if (this.state.student !== null) {
 			const id = this.state.student
 			getStudentFirstName(id)
 				.then(firstName => {
-					this.setState({ ...this.state, studentName: firstName })
+					this.setState({ ...this.state, studentFirstName: firstName })
 				})
 		}
 
@@ -111,13 +109,11 @@ class Mission extends React.Component {
 				})
 		}
 
-		const noStudent = this.state.student === `La mission n'a pas encore été attribuée.`
-
-		const studentText = this.state.student !== `La mission n'a pas encore été attribuée.`
-			?
-			`La mission a été attribuée à ${this.state.studentName}.`
-			:
-			this.state.student
+		const noStudent = this.state.student === null
+		
+		const studentText = this.state.student !== null
+		? `La mission a été attribuée à ${this.state.studentFirstName}.`
+		: `La mission n'a pas encore été attribuée.`
 
 		return (
 			<div className='mission-container'>
