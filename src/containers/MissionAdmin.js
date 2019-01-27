@@ -9,7 +9,7 @@ import MissionStudent from '../components/MissionStudent.js'
 import MissionLawyer from '../components/MissionLawyer.js'
 import MissionDescription from '../components/MissionDescription.js'
 import './style/Mission.css'
-import { getOneMission, getStudentFirstName, missionDownloadFile } from '../api.js'
+import { getOneMission, getStudentFirstName, missionDownloadFile, getOneMissionWithDetails, } from '../api.js'
 
 class MissionAdmin extends React.Component {
 	state = {
@@ -19,8 +19,8 @@ class MissionAdmin extends React.Component {
 		subField: '',
 		deadline: '',
 		price: '',
-		student: ``,
-		studentName: '',
+		student: '',
+		studentFisrtName: '',
 		description: '',
 		finished: '',
 		filesFromLawyer: [],
@@ -32,34 +32,8 @@ class MissionAdmin extends React.Component {
 	missionId = window.location.pathname.slice(6)
 
 	async componentDidMount() {
-		await getOneMission(this.missionId)
-			.then(res => {
-				this.setState({
-					id: res.data._id,
-					name: res.data.name,
-					field: res.data.field,
-					subField: res.data.subField,
-					deadline: res.data.deadline,
-					price: res.data.price,
-					student: res.data.student,
-					description: res.data.description,
-					finished: res.data.finished,
-					filesFromLawyer: res.data.filesFromLawyer,
-					filesFromStudent: res.data.filesFromStudent,
-				})
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-		if (this.state.student === '') {
-			this.setState({ ...this.state, student: `La mission n'a pas encore été attribuée.` })
-		} else {
-			const id = this.state.student
-			getStudentFirstName(id)
-				.then(firstName =>
-					this.setState({ ...this.state, studentName: firstName })
-				)
-		}
+		const mission = await getOneMissionWithDetails(this.missionId)
+		this.setState({ id: mission._id, ...mission})
 	}
 
 	getFileName = id => {
@@ -86,11 +60,9 @@ class MissionAdmin extends React.Component {
 	}
 
 	render() {
-		const studentText = this.state.student !== `La mission n'a pas encore été attribuée.`
-			?
-			`La mission a été attribuée à ${this.state.studentName}.`
-			:
-			this.state.student
+		const studentText = this.state.student !== null
+			? `La mission a été attribuée à ${this.state.studentFirstName}.`
+			: `La mission n'a pas encore été attribuée.`
 
 		return (
 			<div className='mission-container'>
@@ -114,7 +86,7 @@ class MissionAdmin extends React.Component {
 					</div>
 					<div class='mission-infos-block'>
 						<div className='mission-block1'>
-						<MissionLawyer text={studentText} />
+						<MissionLawyer name={this.state.cabinet} />
 						</div>
 						<div className='mission-block2'>
 						<MissionStudent text={studentText} />

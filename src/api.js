@@ -150,6 +150,13 @@ export const getOneMission = missionId => {
 		})
 }
 
+export const getOneMissionWithDetails = missionId => {
+	return axios.get(`${apiUrl}/admin${missionId}`)
+		.then(res => {
+			return res.data
+		})
+}
+
 export const getOldMissions = lawyerId => {
 	return axios.post(`${apiUrl}/oldmissionsfiltered`, { lawyerId })
 		.then(res => {
