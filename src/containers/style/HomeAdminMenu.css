@@ -5,6 +5,39 @@
   cursor: pointer;
 }
 
+.home-student-menu {
+  width: 100vw;
+  min-height: 75vh;
+  display: flex;
+  cursor: pointer;
+}
+
+.home-student-menu-block-linkto {
+  width: 50%;
+}
+
+
+.home-student-menu-currentmissions, .home-student-menu-oldmissions {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: white;
+}
+
+.home-student-menu-currentmissions p, .home-student-menu-oldmissions p {
+  color: white;
+}
+
+.home-student-menu-currentmissions {
+  background-color: #7accbc;
+}
+
+.home-student-menu-oldmissions {
+  background-color: #a1e5d8;
+}
+
 .home-admin-menu-linkto-block1 {
   width: 100%;
   height: 100%;

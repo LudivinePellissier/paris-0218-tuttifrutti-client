@@ -47,12 +47,14 @@ class MissionAdmin extends React.Component {
 	}
 
 	downloadFile = id => {
+		console.log(id)
 		missionDownloadFile(id)
 			.then(async res => {
 				const dataFile = new Uint8Array(res.data)
 				const blobDataFile = new Blob([dataFile], { type: res.type })
 				const link = document.createElement('a')
 				const fileName = this.getFileName(id)
+				console.log(fileName)
 				link.href = window.URL.createObjectURL(blobDataFile)
 				link.download = fileName
 				link.click()

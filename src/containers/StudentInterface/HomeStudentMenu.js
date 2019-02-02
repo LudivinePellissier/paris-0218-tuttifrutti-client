@@ -5,13 +5,13 @@ import '../style/HomeAdminMenu.css'
 
 const HomeStudentMenu = () => (
 	<div>
-		<div className='home-admin-menu'>
-			<Link className='home-admin-menu-linkto' to={`/student/missionslist`}>
-				<div className='home-admin-missionslist'>
+		<div className='home-student-menu'>
+			<Link className='home-student-menu-block-linkto' to={`/student/missionslist`}>
+				<div className='home-student-menu-currentmissions'>
 					<MenuTitle text='Missions en cours' />
 				</div></Link>
-				<Link className='home-admin-menu-linkto' to={`/student/oldmissions`}>
-				<div className='home-admin-lawyerslist'>
+				<Link className='home-student-menu-block-linkto' to={`/student/oldmissions`}>
+				<div className='home-student-menu-oldmissions'>
 					<MenuTitle text='Missions terminées' />
 				</div>
 			</Link>
